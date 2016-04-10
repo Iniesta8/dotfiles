@@ -12,7 +12,7 @@ set nocompatible
 set t_Co=256
 set background=dark
 syntax on
-"colorscheme molotov " No colorscheme set -> use default colors from terminal
+colorscheme Tomorrow-Night-Eighties 
 " }}}
 
 " Mapleader {{{
@@ -641,6 +641,7 @@ Plug 'tpope/vim-markdown',     { 'for': 'markdown' }
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby'
 "Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
 "Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
