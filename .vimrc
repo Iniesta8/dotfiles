@@ -12,11 +12,11 @@ set nocompatible
 set t_Co=256
 set background=dark
 syntax on
-colorscheme Tomorrow-Night-Eighties 
+colorscheme Onedark 
 " }}}
 
 " Mapleader {{{
-let mapleader=","
+let mapleade=","
 let g:mapleader=","
 " }}}
 
@@ -165,15 +165,7 @@ augroup general_config
   " Better mark jumping (line + col) {{{
   nnoremap ' `
   " }}}
-
-  " Hard to type things {{{
-  iabbrev >> →
-  iabbrev << ←
-  iabbrev ^^ ↑
-  iabbrev VV ↓
-  iabbrev aa λ
-  " }}}
-
+ 
   " Toggle show tabs and trailing spaces (,c) {{{
   set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
   set fcs=fold:-
@@ -622,11 +614,9 @@ Plug 'joker1007/vim-ruby-heredoc-syntax'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-emoji'
 Plug 'junegunn/goyo.vim'
-"Plug 'kchmck/vim-coffee-script'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'msanders/snipmate.vim'
-"Plug 'mustache/vim-mustache-handlebars'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'oplatek/Conque-Shell'
 Plug 'pangloss/vim-javascript'
@@ -634,19 +624,13 @@ Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/syntastic'
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
-"Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-fugitive'
-"Plug 'tpope/vim-haml'
 Plug 'tpope/vim-markdown',     { 'for': 'markdown' }
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby'
-"Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
-"Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
-"Plug 'wavded/vim-stylus',      { 'for': 'stylus' }
-"Plug 'wlangstroth/vim-racket'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 
