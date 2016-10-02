@@ -12,11 +12,11 @@ set nocompatible
 set t_Co=256
 set background=dark
 syntax on
-colorscheme Onedark 
+colorscheme Tomorrow-Night-Eighties 
 " }}}
 
 " Mapleader {{{
-let mapleade=","
+let mapleader=","
 let g:mapleader=","
 " }}}
 
