@@ -12,7 +12,7 @@ set nocompatible
 set t_Co=256
 set background=dark
 syntax on
-colorscheme Tomorrow-Night-Eighties 
+colorscheme gruvbox
 " }}}
 
 " Mapleader {{{
@@ -633,6 +633,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 " }}}

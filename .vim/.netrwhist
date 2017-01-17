@@ -1,3 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
-let g:netrw_dirhist_1='/Users/andi/.Scilab/scilab-5.5.2'
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Users/andi/Coding/kp-ada/other/ex05/list_test/src'
+let g:netrw_dirhist_2='/Users/andi/Coding/kp-ada/other/ex05/list_test'
+let g:netrw_dirhist_3='/Users/andi/Coding/kp-ada/other/ex05/list_test/src'
+let g:netrw_dirhist_4='/Users/andi/Coding/kp-ada/other/ex07/task_test/src'
+let g:netrw_dirhist_5='/Users/andi/Coding/kp-ada/other/ex05/list_test/src'
