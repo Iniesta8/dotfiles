@@ -634,6 +634,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 Plug 'morhetz/gruvbox'
+Plug 'fatih/vim-go'
 
 call plug#end()
 " }}}
