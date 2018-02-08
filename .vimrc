@@ -482,6 +482,13 @@ augroup syntastic_config
 augroup END
 " }}}
 
+" editorconfig-vim {{{
+augroup editorconfig_config
+  autocmd!
+  let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+augroup END
+" }}}
+
 
 " Plugins -------------------------------------------------------------
 
