@@ -479,6 +479,9 @@ augroup syntastic_config
   let g:syntastic_error_symbol = '✗'
   let g:syntastic_warning_symbol = '⚠'
   let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+  let g:syntastic_cpp_checkers = ['clang']
+  let g:syntastic_cpp_compiler = 'clang'
+  let g:syntastic_cpp_compiler_options = '-std=c++14, -Wall'
 augroup END
 " }}}
 
