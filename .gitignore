@@ -1,15 +1,14 @@
 
-# working files
-.vim/viminfo
+# Working files
+.vim/viminfo*
 .vim/swaps/*
 .vim/undo
 .vim/plugged/*
+.vim/autoload/*
+./vim/.netrwhist
 
-# git credential file 
+# Git credential file 
 .gitconfig.local
-
-
-
 
 # Folder view configuration files
 .DS_Store
