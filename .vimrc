@@ -12,7 +12,7 @@ set nocompatible
 set t_Co=256
 set background=dark
 syntax on
-colorscheme gruvbox
+colorscheme onedark
 " }}}
 
 " Mapleader {{{
@@ -36,12 +36,7 @@ set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
 set esckeys " Allow cursor keys in insert mode
 set expandtab " Expand tabs to spaces
-"set foldcolumn=0 " Column to show folds
 set nofoldenable " Disable folding
-"set foldlevel=0 " Close all folds by default
-"set foldmethod=syntax " Syntax are used to specify folds
-"set foldminlines=0 " Allow folding single lines
-"set foldnestmax=5 " Set max fold nesting level
 set formatoptions=
 set formatoptions+=c " Format comments
 set formatoptions+=r " Continue comments by default
@@ -449,6 +444,7 @@ augroup END
 " Airline.vim {{{
 augroup airline_config
   autocmd!
+  let g:airline_theme = 'onedark'
   let g:airline_powerline_fonts = 1
   let g:airline_enable_syntastic = 1
   let g:airline#extensions#tabline#buffer_nr_format = '%s '
@@ -462,14 +458,33 @@ augroup END
 " CtrlP.vim {{{
 augroup ctrlp_config
   autocmd!
-  let g:ctrlp_clear_cache_on_exit = 0 " Do not clear filenames cache, to improve CtrlP startup
-  let g:ctrlp_lazy_update = 350 " Set delay to prevent extra search
-  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' } " Use python fuzzy matcher for better performance
-  let g:ctrlp_match_window_bottom = 0 " Show at top of window
-  let g:ctrlp_max_files = 0 " Set no file limit, we are building a big project
-  let g:ctrlp_switch_buffer = 'Et' " Jump to tab AND buffer if already open
-  let g:ctrlp_open_new_file = 'r' " Open newly created files in the current window
-  let g:ctrlp_open_multiple_files = 'ij' " Open multiple files in hidden buffers, and jump to the first one
+  map <leader>j :CtrlP<cr>
+  map <c-b> :CtrlPBuffer<cr>
+  let g:ctrlp_working_path_mode = 'ra'
+  let g:ctrlp_map = '<c-f>'
+  let g:ctrlp_max_height = 20
+  let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
+augroup END
+" }}}
+
+" MRU.vim {{{
+augroup mru_config
+  autocmd!
+  let MRU_Max_Entries = 400
+  map <leader>f :MRU<CR>
+augroup END
+" }}}
+
+" NERDtree {{{
+augroup nerdtree_config
+  autocmd!
+  let g:NERDTreeWinPos = "right"
+  let NERDTreeShowHidden=0
+  let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+  let g:NERDTreeWinSize=35
+  map <leader>nn :NERDTreeToggle<cr>
+  map <leader>nb :NERDTreeFromBookmark<Space>
+  map <leader>nf :NERDTreeFind<cr>
 augroup END
 " }}}
 
@@ -478,20 +493,18 @@ augroup syntastic_config
   autocmd!
   let g:syntastic_error_symbol = '✗'
   let g:syntastic_warning_symbol = '⚠'
-  let g:syntastic_ruby_checkers = ['mri', 'rubocop']
   let g:syntastic_cpp_checkers = ['clang']
   let g:syntastic_cpp_compiler = 'clang'
   let g:syntastic_cpp_compiler_options = '-std=c++14, -Wall'
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
 augroup END
 " }}}
-
-" editorconfig-vim {{{
-augroup editorconfig_config
-  autocmd!
-  let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-augroup END
-" }}}
-
 
 " Plugins -------------------------------------------------------------
 
@@ -500,12 +513,14 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'bling/vim-airline'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'vim-scripts/mru.vim'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'joshdick/onedark.vim'
 
 call plug#end()
 " }}}
