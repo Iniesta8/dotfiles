@@ -1,12 +1,10 @@
 
 # Working files
-.vim/autoload/*
-.vim/plugged/*
+.vim/autoload
+.vim/backups
+.vim/plugged
 .vim/undo
 .vim/viminfo*
-
-# Git credential file 
-.gitconfig.local
 
 # Folder view configuration files
 .DS_Store
@@ -20,5 +18,3 @@ Thumbs.db
 .Spotlight-V100
 .Trashes
 
-# Compiled Python files
-*.pyc
