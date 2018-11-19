@@ -1,11 +1,10 @@
 
 # Working files
 .vim/viminfo*
-.vim/swaps/*
+.vim/swaps
 .vim/undo
 .vim/plugged/*
 .vim/autoload/*
-./vim/.netrwhist
 
 # Git credential file 
 .gitconfig.local
