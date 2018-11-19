@@ -211,10 +211,6 @@ augroup general_config
   nnoremap J mjJ`j
   " }}}
 
-  " " Toggle folds (<Space>) {{{
-  " nnoremap <silent> <space> :exe 'silent! normal! '.((foldclosed('.')>0)? 'zMzx' : 'zc')<CR>
-  " " }}}
-
   " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search) {{{
   map <space> /
   map <c-space> ?
@@ -493,16 +489,7 @@ augroup syntastic_config
   autocmd!
   let g:syntastic_error_symbol = '✗'
   let g:syntastic_warning_symbol = '⚠'
-  let g:syntastic_cpp_checkers = ['clang']
-  let g:syntastic_cpp_compiler = 'clang'
-  let g:syntastic_cpp_compiler_options = '-std=c++14, -Wall'
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 1
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_check_on_wq = 0
+  let g:syntastic_cpp_compiler_options = '-std=c++17'
 augroup END
 " }}}
 
