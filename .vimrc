@@ -508,6 +508,7 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
+Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 " }}}
