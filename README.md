@@ -1,4 +1,6 @@
-# My dotfiles (work in progress)
+# dotfiles
+
+Some of my dotfiles I use on linux machines. Buyer beware ;)
 
 ## Setup
 
