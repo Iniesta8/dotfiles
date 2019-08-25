@@ -15,6 +15,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'joshdick/onedark.vim'
 Plug 'justmao945/vim-clang'
 Plug 'rhysd/vim-clang-format'
+Plug 'machakann/vim-highlightedyank'
 
 call plug#end()
 " }}}
