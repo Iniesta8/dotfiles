@@ -5,17 +5,17 @@
 " Load plugins {{{
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'itchyny/lightline.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'vim-scripts/mru.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
-Plug 'tpope/vim-fugitive'
-Plug 'joshdick/onedark.vim'
-Plug 'justmao945/vim-clang'
-Plug 'rhysd/vim-clang-format'
-Plug 'machakann/vim-highlightedyank'
+Plug 'itchyny/lightline.vim'            " A light and configurable statusline/tabline plugin for Vim
+Plug 'ctrlpvim/ctrlp.vim'               " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
+Plug 'vim-scripts/mru.vim'              " Plugin to manage Most Recently Used (MRU) files
+Plug 'preservim/nerdtree'               " A tree explorer plugin for vim.
+Plug 'preservim/nerdcommenter'          " Vim plugin for intensely nerdy commenting powers
+Plug 'vim-syntastic/syntastic'          " Syntax checking hacks for vim
+Plug 'tpope/vim-fugitive'               " A Git wrapper so awesome, it should be illegal
+Plug 'joshdick/onedark.vim'             " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
+Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf.
+Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
+Plug 'ycm-core/YouCompleteMe'           " A code-completion engine for Vim
 
 call plug#end()
 " }}}
@@ -467,13 +467,6 @@ augroup syntastic_config
   let g:syntastic_error_symbol = '✗'
   let g:syntastic_warning_symbol = '⚠'
   let g:syntastic_cpp_compiler_options = '-std=c++17'
-augroup END
-" }}}
-
-" vim-clang.vim {{{
-augroup vim_clang_config
-  autocmd!
-  let g:clang_compilation_database = './build'
 augroup END
 " }}}
 
