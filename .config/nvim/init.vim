@@ -13,6 +13,7 @@ Plug 'preservim/nerdcommenter'          " Vim plugin for intensely nerdy comment
 Plug 'vim-syntastic/syntastic'          " Syntax checking hacks for vim
 Plug 'tpope/vim-fugitive'               " A Git wrapper so awesome, it should be illegal
 Plug 'joshdick/onedark.vim'             " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
+Plug 'morhetz/gruvbox'                  " Retro groove color scheme for Vim
 Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf.
 Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
 Plug 'ycm-core/YouCompleteMe'           " A code-completion engine for Vim
@@ -32,7 +33,7 @@ set nocompatible
 set t_Co=256
 set background=dark
 syntax on
-colorscheme onedark
+colorscheme gruvbox
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -423,7 +424,7 @@ augroup END
 augroup lightline_config
   autocmd!
   let g:lightline = {
-    \ 'colorscheme': 'one',
+    \ 'colorscheme': 'gruvbox',
     \ }
 augroup END
 " }}}
@@ -509,7 +510,6 @@ augroup END
 " NERD Commenter {{{
 augroup nerd_commenter
   autocmd!
-
   let NERDSpaceDelims=1
   let NERDCompactSexyComs=1
   let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
