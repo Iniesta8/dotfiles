@@ -172,6 +172,11 @@ augroup general_config
   noremap <leader>W :w !sudo tee %<CR>
   " }}}
 
+  " Quickly close the current window (,Q)
+  nnoremap <leader>Q :q<CR>
+  " Quickly close the current buffer (,q)
+  nnoremap <leader>q :bd<CR>
+
   " Get output of shell commands {{{
   command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
   " }}}
@@ -258,10 +263,15 @@ augroup general_config
   imap <PageDown> <C-O><C-D>
   " }}}
 
-  " " Relative numbers {{{
-  " set relativenumber " Use relative line numbers. Current line is still in status bar.
+  " Toggle relative line numbers {{{
+  nnoremap <leader>N :setlocal relativenumber!<cr>
   " au BufReadPost,BufNewFile * set relativenumber
-  " " }}}
+  " }}}
+
+  " Triggers global-search-and-replace. Prompts for a replacement string and
+  " will replace all matches from the previous search command.
+  " nnoremap <leader>r :%s//
+  nnoremap <leader>r :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>:%s//
 augroup END
 " }}}
 
@@ -474,12 +484,15 @@ augroup END
 augroup nerdtree_config
   autocmd!
   let g:NERDTreeWinPos = "left"
-  let NERDTreeShowHidden=0
-  let NERDTreeIgnore = ['\.pyc$', '__pycache__']
   let g:NERDTreeWinSize=35
+  let NERDTreeShowFiles=1
+  let NERDTreeShowHidden=1
+  let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
+            \ '\.o$', '\.so$', '\.egg$', '^\.git$', '__pycache__', '\.DS_Store' ]
   map <leader>nn :NERDTreeToggle<cr>
   map <leader>nb :NERDTreeFromBookmark<Space>
   map <leader>nf :NERDTreeFind<cr>
+  map <leader>n :NERDTreeFocus<cr>
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 " }}}
