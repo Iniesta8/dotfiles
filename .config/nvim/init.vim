@@ -214,6 +214,10 @@ augroup general_config
   map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
   " }}}
 
+  " Display all lines with keyword under cursor and ask which one to jump to {{{
+  nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+  " }}}
+
   " Yank from cursor to end of line {{{
   nnoremap Y y$
   " }}}
@@ -424,8 +428,25 @@ augroup END
 augroup lightline_config
   autocmd!
   let g:lightline = {
-    \ 'colorscheme': 'gruvbox',
-    \ }
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ ['mode', 'paste'],
+      \             ['fugitive', 'readonly', 'filename', 'modified'] ],
+      \   'right': [ [ 'lineinfo' ], ['percent'] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ },
+      \ 'separator': { 'left': ' ', 'right': ' ' },
+      \ 'subseparator': { 'left': ' ', 'right': ' ' }
+      \ }
 augroup END
 " }}}
 
