@@ -551,4 +551,11 @@ augroup nerd_commenter
 augroup END
 " }}}
 
+" YouCompleteMe {{{
+augroup youcompleteme
+  autocmd!
+  nnoremap <Leader>gt :YcmCompleter GoTo<CR>
+augroup END
+" }}}
+
 "
