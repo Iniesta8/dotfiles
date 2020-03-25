@@ -451,13 +451,14 @@ augroup END
 " NERDtree {{{
 augroup nerdtree_config
   autocmd!
-  let g:NERDTreeWinPos = "right"
+  let g:NERDTreeWinPos = "left"
   let NERDTreeShowHidden=0
   let NERDTreeIgnore = ['\.pyc$', '__pycache__']
   let g:NERDTreeWinSize=35
   map <leader>nn :NERDTreeToggle<cr>
   map <leader>nb :NERDTreeFromBookmark<Space>
   map <leader>nf :NERDTreeFind<cr>
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 " }}}
 
