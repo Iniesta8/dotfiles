@@ -466,7 +466,7 @@ augroup syntastic_config
   autocmd!
   let g:syntastic_error_symbol = '✗'
   let g:syntastic_warning_symbol = '⚠'
-  let g:syntastic_cpp_compiler_options = '-std=c++17'
+  let g:syntastic_cpp_compiler_options = '-std=c++2a'
 augroup END
 " }}}
 
