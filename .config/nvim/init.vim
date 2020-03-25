@@ -14,6 +14,7 @@ Plug 'vim-syntastic/syntastic'          " Syntax checking hacks for vim
 Plug 'tpope/vim-fugitive'               " A Git wrapper so awesome, it should be illegal
 Plug 'joshdick/onedark.vim'             " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
 Plug 'morhetz/gruvbox'                  " Retro groove color scheme for Vim
+Plug 'tpope/vim-surround'               " surround.vim: quoting/parenthesizing made simple
 Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf.
 Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
 Plug 'ycm-core/YouCompleteMe'           " A code-completion engine for Vim
