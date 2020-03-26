@@ -6,16 +6,16 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'itchyny/lightline.vim'            " A light and configurable statusline/tabline plugin for Vim
-Plug 'ctrlpvim/ctrlp.vim'               " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
+Plug 'ctrlpvim/ctrlp.vim'               " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder
 Plug 'vim-scripts/mru.vim'              " Plugin to manage Most Recently Used (MRU) files
-Plug 'preservim/nerdtree'               " A tree explorer plugin for vim.
+Plug 'preservim/nerdtree'               " A tree explorer plugin for vim
 Plug 'preservim/nerdcommenter'          " Vim plugin for intensely nerdy commenting powers
 Plug 'vim-syntastic/syntastic'          " Syntax checking hacks for vim
 Plug 'tpope/vim-fugitive'               " A Git wrapper so awesome, it should be illegal
-Plug 'joshdick/onedark.vim'             " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme.
+Plug 'joshdick/onedark.vim'             " A dark Vim/Neovim color scheme inspired by Atom's One Dark syntax theme
 Plug 'morhetz/gruvbox'                  " Retro groove color scheme for Vim
 Plug 'tpope/vim-surround'               " surround.vim: quoting/parenthesizing made simple
-Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf.
+Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf
 Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
 Plug 'ycm-core/YouCompleteMe'           " A code-completion engine for Vim
 
@@ -228,10 +228,6 @@ augroup general_config
   nnoremap Y y$
   " }}}
 
-  " Insert newline {{{
-  map <leader><Enter> o<ESC>
-  " }}}
-
   " Search and replace word under cursor (,*) {{{
   nnoremap <leader>* :%s/\<<C-r><C-w>\>//<Left>
   vnoremap <leader>* "hy:%s/\V<C-r>h//<left>
@@ -269,10 +265,6 @@ augroup general_config
   " au BufReadPost,BufNewFile * set relativenumber
   " }}}
 
-  " Triggers global-search-and-replace. Prompts for a replacement string and
-  " will replace all matches from the previous search command.
-  " nnoremap <leader>r :%s//
-  nnoremap <leader>r :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>:%s//
 augroup END
 " }}}
 
@@ -465,10 +457,10 @@ augroup END
 augroup ctrlp_config
   autocmd!
   map <leader>j :CtrlP<cr>
-  map <c-b> :CtrlPBuffer<cr>
   let g:ctrlp_working_path_mode = 'ra'
-  let g:ctrlp_map = '<c-f>'
+  let g:ctrlp_map = '<c-p>'
   let g:ctrlp_max_height = 20
+  let g:ctrlp_show_hidden = 1
   let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 augroup END
 " }}}
@@ -543,7 +535,7 @@ augroup END
 " }}}
 
 " NERD Commenter {{{
-augroup nerd_commenter
+augroup nerd_commenter_config
   autocmd!
   let NERDSpaceDelims=1
   let NERDCompactSexyComs=1
@@ -552,7 +544,7 @@ augroup END
 " }}}
 
 " YouCompleteMe {{{
-augroup youcompleteme
+augroup youcompleteme_config
   autocmd!
   nnoremap <leader>gt :YcmCompleter GoTo<CR>
 augroup END

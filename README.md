@@ -20,9 +20,9 @@ Just create symlinks between cloned repository and your home directory...
 
 | Shortcut | Description |
 | -------- | ----------- |
-| `,`        | Leader      |
+| `,`        | Leader |
 | `,w`       | Fast saving |
-| `,W`       | Sudo write  |
+| `,W`       | Sudo write |
 | `,q`       | Quick close buffer |
 | `,Q`       | Quick close window |
 | `,qq`      | Close quickfix window |
@@ -32,8 +32,9 @@ Just create symlinks between cloned repository and your home directory...
 | `gB`       | Previous buffer |
 | `Y`        | Yank from cursor to end of line |
 | `J`        | Join lines and restore cursor location |
-| `Space`  | Search |
+| `Space`    | Search |
 | `Ctrl+Space` | Backwards search |
+| `,*`       | Replace |
 | `,[1-6]`   | Highlight interesting word |
 | `,j`       | Open CtrlP |
 | `,f`       | Open MRU |
@@ -42,3 +43,4 @@ Just create symlinks between cloned repository and your home directory...
 | `,C`       | Toggle auto clang-format |
 | `,N`       | Toggle relative line numbers |
 | `,fc`      | Find merge conflict markers |
+| `,gt`      | Go to definition |
