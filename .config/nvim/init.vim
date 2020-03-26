@@ -18,6 +18,7 @@ Plug 'tpope/vim-surround'               " surround.vim: quoting/parenthesizing m
 Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf
 Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
 Plug 'ycm-core/YouCompleteMe'           " A code-completion engine for Vim
+Plug 'jiangmiao/auto-pairs'             " Vim plugin, insert or delete brackets, parens, quotes in pair
 
 call plug#end()
 " }}}
@@ -477,10 +478,10 @@ augroup END
 augroup nerdtree_config
   autocmd!
   let g:NERDTreeWinPos = "left"
-  let g:NERDTreeWinSize=35
-  let NERDTreeShowFiles=1
-  let NERDTreeShowHidden=1
-  let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
+  let g:NERDTreeWinSize = 35
+  let NERDTreeShowFiles = 1
+  let NERDTreeShowHidden = 1
+  let NERDTreeIgnore = [ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
             \ '\.o$', '\.so$', '\.egg$', '^\.git$', '__pycache__', '\.DS_Store' ]
   map <leader>nn :NERDTreeToggle<cr>
   map <leader>nb :NERDTreeFromBookmark<Space>
@@ -522,8 +523,8 @@ augroup END
 " vim-clang-format {{{
 augroup clang_format_config
   autocmd!
-  let g:clang_format#detect_style_file=1
-  let g:clang_format#auto_format=1
+  let g:clang_format#detect_style_file = 1
+  let g:clang_format#auto_format = 1
   " map to <leader>cf in C++ code
   autocmd FileType c,cpp,objc nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
   autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :ClangFormat<CR>
@@ -537,9 +538,11 @@ augroup END
 " NERD Commenter {{{
 augroup nerd_commenter_config
   autocmd!
-  let NERDSpaceDelims=1
-  let NERDCompactSexyComs=1
-  let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
+  let NERDSpaceDelims = 1
+  let NERDCompactSexyComs = 1
+  let g:NERDTrimTrailingWhitespace = 1
+  let g:NERDCommentEmptyLines = 1
+  let g:NERDCustomDelimiters = { 'c': { 'left': '//' } }
 augroup END
 " }}}
 
