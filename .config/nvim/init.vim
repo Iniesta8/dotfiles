@@ -173,10 +173,10 @@ augroup general_config
   noremap <leader>W :w !sudo tee %<CR>
   " }}}
 
-  " Quickly close the current window (,Q)
+  " Quickly close the current window (,Q) or current buffer (,q) {{{
   nnoremap <leader>Q :q<CR>
-  " Quickly close the current buffer (,q)
   nnoremap <leader>q :bd<CR>
+  " }}}
 
   " Get output of shell commands {{{
   command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
@@ -221,7 +221,7 @@ augroup general_config
   " }}}
 
   " Display all lines with keyword under cursor and ask which one to jump to {{{
-  nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+  nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
   " }}}
 
   " Yank from cursor to end of line {{{
@@ -285,8 +285,8 @@ augroup buffer_control
   " }}}
 
   " Buffer navigation (,,) (gb) (gB) (,ls) {{{
-  map <Leader>, <C-^>
-  map <Leader>ls :buffers<CR>
+  map <leader>, <C-^>
+  map <leader>ls :buffers<CR>
   map gb :bnext<CR>
   map gB :bprev<CR>
   " }}}
@@ -532,11 +532,11 @@ augroup clang_format_config
   autocmd!
   let g:clang_format#detect_style_file=1
   let g:clang_format#auto_format=1
-  " map to <Leader>cf in C++ code
-  autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-  autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+  " map to <leader>cf in C++ code
+  autocmd FileType c,cpp,objc nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
+  autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :ClangFormat<CR>
   " Toggle auto formatting:
-  nmap <Leader>C :ClangFormatAutoToggle<CR>
+  nmap <leader>C :ClangFormatAutoToggle<CR>
   " auto-enabling auto-formatting
   autocmd FileType c ClangFormatAutoEnable
 augroup END
@@ -554,7 +554,7 @@ augroup END
 " YouCompleteMe {{{
 augroup youcompleteme
   autocmd!
-  nnoremap <Leader>gt :YcmCompleter GoTo<CR>
+  nnoremap <leader>gt :YcmCompleter GoTo<CR>
 augroup END
 " }}}
 
