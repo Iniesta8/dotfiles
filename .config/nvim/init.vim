@@ -59,6 +59,12 @@ let mapleader=","
 let g:mapleader=","
 " }}}
 
+" Directories {{{
+set undodir=~/.vim/undo//
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+" }}}
+
 " Set some junk {{{
 set autoindent " Copy indent from last line when starting new line
 set autoread " Set to auto read when a file is changed from the outside
@@ -264,6 +270,10 @@ augroup general_config
   " Toggle relative line numbers {{{
   nnoremap <leader>N :setlocal relativenumber!<cr>
   " au BufReadPost,BufNewFile * set relativenumber
+  " }}}
+
+  " Make commands {{{
+  nnoremap <leader>mm :make -j<CR>
   " }}}
 
 augroup END
