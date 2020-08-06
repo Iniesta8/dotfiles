@@ -98,4 +98,4 @@ source $ZSH/oh-my-zsh.sh
 alias vim=/usr/bin/nvim
 alias dev=/home/andi/init.sh
 
-export PATH="$HOME/.cargo/bin:$PATH"
+# export PATH="$HOME/.cargo/bin:$PATH"
