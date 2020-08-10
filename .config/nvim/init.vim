@@ -6,18 +6,17 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'itchyny/lightline.vim'            " A light and configurable statusline/tabline plugin for Vim
-Plug 'ctrlpvim/ctrlp.vim'               " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder
-Plug 'vim-scripts/mru.vim'              " Plugin to manage Most Recently Used (MRU) files
 Plug 'preservim/nerdtree'               " A tree explorer plugin for vim
 Plug 'preservim/nerdcommenter'          " Vim plugin for intensely nerdy commenting powers
 Plug 'vim-syntastic/syntastic'          " Syntax checking hacks for vim
 Plug 'tpope/vim-fugitive'               " A Git wrapper so awesome, it should be illegal
-Plug 'morhetz/gruvbox'                  " Retro groove color scheme for Vim
 Plug 'tpope/vim-surround'               " surround.vim: quoting/parenthesizing made simple
 Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf
 Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
-Plug 'jiangmiao/auto-pairs'             " Vim plugin, insert or delete brackets, parens, quotes in pair
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } " Challenger Deep Theme for VIM
+Plug 'rust-lang/rust.vim'               " This is a Vim plugin that provides Rust support
+Plug 'cespare/vim-toml'                 " Vim syntax for TOML
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
 
 call plug#end()
 " }}}
@@ -58,19 +57,21 @@ let g:mapleader=","
 
 " Directories {{{
 set undodir=~/.vim/undo//
-set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
+set nobackup " Some servers have issues with backup files
+set nowritebackup
 " }}}
 
 " Set some junk {{{
 set autoindent " Copy indent from last line when starting new line
 set autoread " Set to auto read when a file is changed from the outside
 set backspace=indent,eol,start
+set cmdheight=2 " Give more space for displaying messages.
 set cursorline " Highlight current line
 set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
-set expandtab " Expand tabs to spaces
+" set expandtab " Expand tabs to spaces
 set nofoldenable " Disable folding
 set formatoptions=
 set formatoptions+=c " Format comments
@@ -97,7 +98,7 @@ set magic " Enable extended regexes
 set mouse=a " Enable mouse in all modes
 set noerrorbells " Disable error bells
 set nojoinspaces " Only insert single space after a '.', '?' and '!' with a join command
-set noshowmode " Don't show the current mode (airline.vim takes care of us)
+set noshowmode " Don't show the current mode (lightline.vim takes care of us)
 set nostartofline " Don't reset cursor to start of line when moving around
 set nowrap " Do not wrap lines
 set nu " Enable line numbers
@@ -107,20 +108,24 @@ set report=0 " Show all changes
 set ruler " Show the cursor position
 set scrolloff=3 " Start scrolling three lines before horizontal border of window
 set shell=/bin/sh " Use /bin/sh for executing shell commands
-set shiftwidth=4 " The # of spaces for indenting
+set shiftwidth=2 " The # of spaces for indenting
+set shortmess+=c " Don't give ins-completion-menu messages
 set showtabline=2 " Always show tab bar
 set si " Smart indent
 set sidescrolloff=3 " Start scrolling three columns before vertical border of window
-set smartcase " Ignore 'ignorecase' if search patter contains uppercase characters
+set signcolumn=yes " Always show signcolumns
+set smartcase " Ignore 'ignorecase' if search pattern contains uppercase characters
 set smarttab " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces
-set softtabstop=4 " Tab key results in 4 spaces
+set softtabstop=2 " Tab key results in 4 spaces
 set splitbelow " New window goes below
 set splitright " New windows goes right
 set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
 set switchbuf=""
+set tabstop=2
 set title " Show the filename in the window titlebar
 set ttyfast " Send more characters at a given time
 set undofile " Persistent Undo
+set updatetime=300 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 set wildchar=<TAB> " Character for CLI expansion (TAB-completion)
 set wildignore+=.DS_Store
@@ -204,20 +209,12 @@ augroup general_config
   nnoremap <silent> <leader>c :set nolist!<CR>
   " }}}
 
-  " Clear last search (,qs) {{{
-  map <silent> <leader>qs <Esc>:noh<CR>
-  map <silent> <leader>qs <Esc>:let @/ = ""<CR>
-  " }}}
-
-  " Remap keys for auto-completion menu {{{
-  inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
-  inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
-  inoremap <expr> <Up>   pumvisible() ? "\<C-p>" : "\<Up>"
-  " }}}
-
-  " Paste toggle (,p) {{{
-  set pastetoggle=<leader>p
-  map <leader>p :set invpaste paste?<CR>
+  " Stop searching (ctrl + h) {{{
+	vnoremap <C-h> :nohlsearch<cr>
+	nnoremap <C-h> :nohlsearch<cr>
+	" Clear last search (,qs)
+	" map <silent> <leader>qs <Esc>:noh<CR>
+  " map <silent> <leader>qs <Esc>:let @/ = ""<CR>
   " }}}
 
   " Find merge conflict markers {{{
@@ -404,22 +401,22 @@ augroup END
 " }}}
 
 " Word Processor Mode {{{
-augroup word_processor_mode
-  autocmd!
-
-  function! WordProcessorMode() " {{{
-    setlocal formatoptions=t1
-    map j gj
-    map k gk
-    setlocal smartindent
-    setlocal spell spelllang=en_ca
-    setlocal noexpandtab
-    setlocal wrap
-    setlocal linebreak
-    Goyo 100
-  endfunction " }}}
-  com! WP call WordProcessorMode()
-augroup END
+" augroup word_processor_mode
+"   autocmd!
+"
+"   function! WordProcessorMode() " {{{
+"     setlocal formatoptions=t1
+"     map j gj
+"     map k gk
+"     setlocal smartindent
+"     setlocal spell spelllang=en_ca
+"     setlocal noexpandtab
+"     setlocal wrap
+"     setlocal linebreak
+"     Goyo 100
+"   endfunction " }}}
+"   com! WP call WordProcessorMode()
+" augroup END
 " }}}
 
 " Restore Cursor Position {{{
@@ -462,23 +459,23 @@ augroup END
 " }}}
 
 " CtrlP.vim {{{
-augroup ctrlp_config
-  autocmd!
-  map <leader>j :CtrlP<cr>
-  let g:ctrlp_working_path_mode = 'ra'
-  let g:ctrlp_map = '<c-p>'
-  let g:ctrlp_max_height = 20
-  let g:ctrlp_show_hidden = 1
-  let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
-augroup END
+" augroup ctrlp_config
+"   autocmd!
+"   map <leader>j :CtrlP<cr>
+"   let g:ctrlp_working_path_mode = 'ra'
+"   let g:ctrlp_map = '<c-p>'
+"   let g:ctrlp_max_height = 20
+"   let g:ctrlp_show_hidden = 1
+"   let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
+" augroup END
 " }}}
 
 " MRU.vim {{{
-augroup mru_config
-  autocmd!
-  let MRU_Max_Entries = 100
-  map <leader>f :MRU<CR>
-augroup END
+" augroup mru_config
+"   autocmd!
+"   let MRU_Max_Entries = 100
+"   map <leader>f :MRU<CR>
+" augroup END
 " }}}
 
 " NERDtree {{{
@@ -553,10 +550,96 @@ augroup nerd_commenter_config
 augroup END
 " }}}
 
-" YouCompleteMe {{{
-augroup youcompleteme_config
+" Rust {{{
+augroup rust_config
   autocmd!
-  nnoremap <leader>gt :YcmCompleter GoTo<CR>
+  let g:rustfmt_autosave = 1
+augroup END
+" }}}
+
+" coc {{{
+augroup coc_config
+  autocmd!
+  let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-pairs',
+  \ 'coc-json',
+  \ ]
+
+  " 'Smart' navigation
+  " Use tab for trigger completion with characters ahead and navigate.
+  " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+  " other plugin before putting this into your config.
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+  " Use <c-.> to trigger completion.
+  inoremap <silent><expr> <c-.> coc#refresh()
+
+  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+  " position. Coc only does snippet and additional edit on confirm.
+  if exists('*complete_info')
+    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+  else
+    imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  endif
+
+  " Use `[g` and `]g` to navigate diagnostics
+  nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+  " GoTo code navigation.
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+
+  " Use K to show documentation in preview window.
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
+
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  " Symbol renaming.
+  nmap <leader>rn <Plug>(coc-rename)
+
+  " Introduce function text object
+  " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+  xmap if <Plug>(coc-funcobj-i)
+  xmap af <Plug>(coc-funcobj-a)
+  omap if <Plug>(coc-funcobj-i)
+  omap af <Plug>(coc-funcobj-a)
+
+  " Use <TAB> for selections ranges.
+  nmap <silent> <TAB> <Plug>(coc-range-select)
+  xmap <silent> <TAB> <Plug>(coc-range-select)
+
+  " Find symbol of current document.
+  " nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+
+  " Search workspace symbols.
+  " nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+
+  " Implement methods for trait
+  " nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<cr>
+
+  " Show actions available at this location
+  " nnoremap <silent> <space>a  :CocAction<cr>
 augroup END
 " }}}
 
