@@ -107,7 +107,7 @@ set regexpengine=1 " Use the old regular expression engine (it's faster for cert
 set report=0 " Show all changes
 set ruler " Show the cursor position
 set scrolloff=3 " Start scrolling three lines before horizontal border of window
-set shell=/bin/sh " Use /bin/sh for executing shell commands
+set shell=/bin/zsh " Use /bin/sh for executing shell commands
 set shiftwidth=2 " The # of spaces for indenting
 set shortmess+=c " Don't give ins-completion-menu messages
 set showtabline=2 " Always show tab bar
@@ -434,27 +434,24 @@ augroup END
 
 " Lightline.vim {{{
 augroup lightline_config
-  autocmd!
-  let g:lightline = {
-      \ 'colorscheme': 'challenger_deep',
-      \ 'active': {
-      \   'left': [ ['mode', 'paste'],
-      \             ['fugitive', 'readonly', 'filename', 'modified'] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'] ]
-      \ },
-      \ 'component': {
-      \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
-      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
-      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
-      \ },
-      \ 'component_visible_condition': {
-      \   'readonly': '(&filetype!="help"&& &readonly)',
-      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
-      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
-      \ },
-      \ 'separator': { 'left': ' ', 'right': ' ' },
-      \ 'subseparator': { 'left': ' ', 'right': ' ' }
-      \ }
+	autocmd!
+	let g:lightline = {
+		\ 'colorscheme': 'challenger_deep',
+		\ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+    \ },
+    \ 'component_function': {
+    \   'filename': 'LightlineFilename',
+    \   'cocstatus': 'coc#status'
+    \ },
+    \ }
+	function! LightlineFilename()
+	  return expand('%:t') !=# '' ? @% : '[No Name]'
+	endfunction
+
+	" Use autocmd to force lightline update
+	autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 augroup END
 " }}}
 
