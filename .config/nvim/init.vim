@@ -19,7 +19,8 @@ Plug 'cespare/vim-toml'                 " Vim syntax for TOML
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
 Plug 'airblade/vim-rooter'              " Rooter changes the working directory to the project root when you open a file or directory
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose command-line fuzzy finder
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] } " vim-which-key is vim port of emacs-which-key that displays available keybindings in popup
 
 call plug#end()
 " }}}
@@ -65,7 +66,7 @@ set nobackup " Some servers have issues with backup files
 set nowritebackup
 " }}}
 
-" Set some junk {{{
+" Set some basic stuff {{{
 set autoindent " Copy indent from last line when starting new line
 set autoread " Set to auto read when a file is changed from the outside
 set backspace=indent,eol,start
@@ -74,7 +75,7 @@ set cursorline " Highlight current line
 set diffopt=filler " Add vertical spaces to keep right and left aligned
 set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
-" set expandtab " Expand tabs to spaces
+set expandtab " Expand tabs to spaces
 set nofoldenable " Disable folding
 set formatoptions=
 set formatoptions+=c " Format comments
@@ -128,7 +129,7 @@ set tabstop=2
 set title " Show the filename in the window titlebar
 set ttyfast " Send more characters at a given time
 set undofile " Persistent Undo
-set updatetime=300 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
+set updatetime=300 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 set wildchar=<TAB> " Character for CLI expansion (TAB-completion)
 set wildignore+=.DS_Store
@@ -213,8 +214,8 @@ augroup general_config
   " }}}
 
   " Stop searching (ctrl + h) {{{
-	vnoremap <C-h> :nohlsearch<cr>
-	nnoremap <C-h> :nohlsearch<cr>
+	vnoremap <C-h> :nohlsearch<CR>
+	nnoremap <C-h> :nohlsearch<CR>
 	" Clear last search (,qs)
 	" map <silent> <leader>qs <Esc>:noh<CR>
 	" map <silent> <leader>qs <Esc>:let @/ = ""<CR>
@@ -258,7 +259,7 @@ augroup general_config
   " }}}
 
   " Toggle relative line numbers {{{
-  nnoremap <leader>N :setlocal relativenumber!<cr>
+  nnoremap <leader>N :setlocal relativenumber!<CR>
   " au BufReadPost,BufNewFile * set relativenumber
   " }}}
 
@@ -279,7 +280,7 @@ augroup buffer_control
 
   " Buffer navigation (,,) (gb) (gB) (,ls) {{{
   map <leader>, <C-^>
-  map <leader>ls :buffers<CR>
+  map <leader>b :Buffers<CR>
   map gb :bnext<CR>
   map gB :bprev<CR>
   " }}}
@@ -309,8 +310,8 @@ augroup jump_to_tags
   " screen.  Both will pulse the cursor line so you can see where the hell you
   " are.  <c-\> will also fold everything in the buffer and then unfold just
   " enough for you to see the destination line.
-  nnoremap <c-]> <c-]>mzzvzz15<c-e>`z:Pulse<cr>
-  nnoremap <c-\> <c-w>v<c-]>mzzMzvzz15<c-e>`z:Pulse<cr>
+  nnoremap <c-]> <c-]>mzzvzz15<c-e>`z:Pulse<CR>
+  nnoremap <c-\> <c-w>v<c-]>mzzMzvzz15<c-e>`z:Pulse<CR>
 
   " Pulse Line (thanks Steve Losh)
   function! s:Pulse() " {{{
@@ -377,12 +378,12 @@ augroup highlight_interesting_word
   endfunction " }}}
 
   " Mappings {{{
-  nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-  nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-  nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-  nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-  nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-  nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+  nnoremap <silent> <leader>1 :call HiInterestingWord(1)<CR>
+  nnoremap <silent> <leader>2 :call HiInterestingWord(2)<CR>
+  nnoremap <silent> <leader>3 :call HiInterestingWord(3)<CR>
+  nnoremap <silent> <leader>4 :call HiInterestingWord(4)<CR>
+  nnoremap <silent> <leader>5 :call HiInterestingWord(5)<CR>
+  nnoremap <silent> <leader>6 :call HiInterestingWord(6)<CR>
   " }}}
 
   " Default Highlights {{{
@@ -407,7 +408,7 @@ augroup restore_cursor
 augroup END
 " }}}
 
-" Search files {{{
+" Search files and file content (grep) {{{
 augroup search_config
 	if executable('rg')
 		set grepprg=rg\ --no-heading\ --vimgrep
@@ -419,19 +420,11 @@ augroup search_config
 	"		export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 	" fuzzy search for files (fzf + rg)
-	nnoremap <C-p> :Files<cr>
+	nnoremap <C-p> :Files<CR>
 
 	" fuzzy grep for file content (fzf + rg)
-	nnoremap <leader>rg :Rg<cr>
+	nnoremap <leader>rg :Rg<CR>
 
-	" function! s:list_cmd()
-	"   let base = fnamemodify(expand('%'), ':h:.:S')
-	"   return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
-	" endfunction
-
-	" command! -bang -nargs=? -complete=dir Files
-	"   \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
-	"   \                               'options': '--tiebreak=index'}, <bang>0)
 augroup END
 " }}}
 
@@ -469,10 +462,10 @@ augroup nerdtree_config
   let NERDTreeShowHidden = 1
   let NERDTreeIgnore = [ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
             \ '\.o$', '\.so$', '\.egg$', '^\.git$', '__pycache__', '\.DS_Store' ]
-  map <leader>nn :NERDTreeToggle<cr>
+  map <leader>nn :NERDTreeToggle<CR>
   map <leader>nb :NERDTreeFromBookmark<Space>
-  map <leader>nf :NERDTreeFind<cr>
-  map <leader>n :NERDTreeFocus<cr>
+  map <leader>nf :NERDTreeFind<CR>
+  map <leader>n :NERDTreeFocus<CR>
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 " }}}
@@ -569,9 +562,9 @@ augroup coc_config
   " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
   " position. Coc only does snippet and additional edit on confirm.
   if exists('*complete_info')
-    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+    inoremap <expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
   else
-    imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    imap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
   endif
 
   " Use `[g` and `]g` to navigate diagnostics
@@ -613,16 +606,23 @@ augroup coc_config
   xmap <silent> <TAB> <Plug>(coc-range-select)
 
   " Find symbol of current document.
-  " nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+  " nnoremap <silent> <space>o  :<C-u>CocList outline<CR>
 
   " Search workspace symbols.
-  " nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+  " nnoremap <silent> <space>s  :<C-u>CocList -I symbols<CR>
 
   " Implement methods for trait
-  " nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<cr>
+  " nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<CR>
 
   " Show actions available at this location
-  " nnoremap <silent> <space>a  :CocAction<cr>
+  " nnoremap <silent> <space>a  :CocAction<CR>
+augroup END
+" }}}
+
+" which key {{{
+augroup which_key_config
+	autocmd!
+	nnoremap <silent> <leader> :WhichKey '<leader>'<CR>
 augroup END
 " }}}
 
