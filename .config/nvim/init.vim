@@ -558,6 +558,7 @@ augroup END
 augroup coc_config
   autocmd!
   let g:coc_global_extensions = [
+  \ 'coc-rust-analyzer',
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-json',

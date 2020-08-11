@@ -4,19 +4,12 @@ Some of my dotfiles that I use on linux machines. Buyer beware ;)
 
 ## Setup
 
-### Install by script
-
-The easiest way to install all dotfiles is to run the setup.sh script:
-```bash
-chmod u+x ./setup.sh && ./setup.sh
-```
-
 ### Manual install
 
 Just create symlinks between cloned repository and your home directory...
 
 
-## Important NVIM shortcuts
+## Some important neovim shortcuts
 
 | Shortcut | Description |
 | -------- | ----------- |
@@ -36,11 +29,8 @@ Just create symlinks between cloned repository and your home directory...
 | `Ctrl+Space` | Backwards search |
 | `,*`       | Replace |
 | `,[1-6]`   | Highlight interesting word |
-| `,j`       | Open CtrlP |
-| `,f`       | Open MRU |
 | `,nn`      | Toggle NERDTree |
 | `,n`       | Focus NERDTree |
 | `,C`       | Toggle auto clang-format |
 | `,N`       | Toggle relative line numbers |
 | `,fc`      | Find merge conflict markers |
-| `,gt`      | Go to definition |
