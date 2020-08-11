@@ -99,3 +99,6 @@ alias vim=/usr/bin/nvim
 alias dev=/home/andi/init.sh
 
 # export PATH="$HOME/.cargo/bin:$PATH"
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden'
+

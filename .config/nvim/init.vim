@@ -17,6 +17,9 @@ Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } " Challenger Deep 
 Plug 'rust-lang/rust.vim'               " This is a Vim plugin that provides Rust support
 Plug 'cespare/vim-toml'                 " Vim syntax for TOML
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
+Plug 'airblade/vim-rooter'              " Rooter changes the working directory to the project root when you open a file or directory
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose command-line fuzzy finder
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 " }}}
@@ -160,8 +163,8 @@ augroup general_config
   autocmd!
 
   " Speed up viewport scrolling {{{
-  nnoremap <C-e> 3<C-e>
-  nnoremap <C-y> 3<C-y>
+  " nnoremap <C-e> 3<C-e>
+  " nnoremap <C-y> 3<C-y>
   " }}}
 
   " Faster split resizing (+,-) {{{
@@ -214,7 +217,7 @@ augroup general_config
 	nnoremap <C-h> :nohlsearch<cr>
 	" Clear last search (,qs)
 	" map <silent> <leader>qs <Esc>:noh<CR>
-  " map <silent> <leader>qs <Esc>:let @/ = ""<CR>
+	" map <silent> <leader>qs <Esc>:let @/ = ""<CR>
   " }}}
 
   " Find merge conflict markers {{{
@@ -254,13 +257,6 @@ augroup general_config
   map <c-space> ?
   " }}}
 
-  " Fix page up and down {{{
-  map <PageUp> <C-U>
-  map <PageDown> <C-D>
-  imap <PageUp> <C-O><C-U>
-  imap <PageDown> <C-O><C-D>
-  " }}}
-
   " Toggle relative line numbers {{{
   nnoremap <leader>N :setlocal relativenumber!<cr>
   " au BufReadPost,BufNewFile * set relativenumber
@@ -278,7 +274,7 @@ augroup buffer_control
   autocmd!
 
   " Prompt for buffer to select (,bs) {{{
-  nnoremap <leader>bs :CtrlPBuffer<CR>
+  " nnoremap <leader>bs :CtrlPBuffer<CR>
   " }}}
 
   " Buffer navigation (,,) (gb) (gB) (,ls) {{{
@@ -297,7 +293,7 @@ augroup buffer_control
   " }}}
 
   " Close Quickfix window (,qq) {{{
-  map <leader>qq :cclose<CR>
+  " map <leader>qq :cclose<CR>
   " }}}
 augroup END
 " }}}
@@ -400,25 +396,6 @@ augroup highlight_interesting_word
 augroup END
 " }}}
 
-" Word Processor Mode {{{
-" augroup word_processor_mode
-"   autocmd!
-"
-"   function! WordProcessorMode() " {{{
-"     setlocal formatoptions=t1
-"     map j gj
-"     map k gk
-"     setlocal smartindent
-"     setlocal spell spelllang=en_ca
-"     setlocal noexpandtab
-"     setlocal wrap
-"     setlocal linebreak
-"     Goyo 100
-"   endfunction " }}}
-"   com! WP call WordProcessorMode()
-" augroup END
-" }}}
-
 " Restore Cursor Position {{{
 augroup restore_cursor
   autocmd!
@@ -427,6 +404,34 @@ augroup restore_cursor
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
+augroup END
+" }}}
+
+" Search files {{{
+augroup search_config
+	if executable('rg')
+		set grepprg=rg\ --no-heading\ --vimgrep
+		set grepformat=%f:%l:%c:%m
+	endif
+
+	" fzf default command is sourced in .zshrc, so that fzf uses rg for
+	" searching:
+	"		export FZF_DEFAULT_COMMAND='rg --files --hidden'
+
+	" fuzzy search for files (fzf + rg)
+	nnoremap <C-p> :Files<cr>
+
+	" fuzzy grep for file content (fzf + rg)
+	nnoremap <leader>rg :Rg<cr>
+
+	" function! s:list_cmd()
+	"   let base = fnamemodify(expand('%'), ':h:.:S')
+	"   return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
+	" endfunction
+
+	" command! -bang -nargs=? -complete=dir Files
+	"   \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
+	"   \                               'options': '--tiebreak=index'}, <bang>0)
 augroup END
 " }}}
 
@@ -453,26 +458,6 @@ augroup lightline_config
 	" Use autocmd to force lightline update
 	autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 augroup END
-" }}}
-
-" CtrlP.vim {{{
-" augroup ctrlp_config
-"   autocmd!
-"   map <leader>j :CtrlP<cr>
-"   let g:ctrlp_working_path_mode = 'ra'
-"   let g:ctrlp_map = '<c-p>'
-"   let g:ctrlp_max_height = 20
-"   let g:ctrlp_show_hidden = 1
-"   let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
-" augroup END
-" }}}
-
-" MRU.vim {{{
-" augroup mru_config
-"   autocmd!
-"   let MRU_Max_Entries = 100
-"   map <leader>f :MRU<CR>
-" augroup END
 " }}}
 
 " NERDtree {{{
