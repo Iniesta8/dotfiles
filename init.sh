@@ -6,4 +6,4 @@ SESSION_NAME=dev
 #eval `ssh-agent -s` >/dev/null
 ssh-add
 
-tmux -2 new -t $SESSION_NAME
+TERM=screen-256color tmux new -t $SESSION_NAME
