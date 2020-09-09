@@ -214,11 +214,11 @@ augroup general_config
   " }}}
 
   " Stop searching (ctrl + h) {{{
-	vnoremap <C-h> :nohlsearch<CR>
-	nnoremap <C-h> :nohlsearch<CR>
+	" vnoremap <C-h> :nohlsearch<CR>
+	" nnoremap <C-h> :nohlsearch<CR>
 	" Clear last search (,qs)
-	" map <silent> <leader>qs <Esc>:noh<CR>
-	" map <silent> <leader>qs <Esc>:let @/ = ""<CR>
+  map <silent> <leader>qs <Esc>:noh<CR>
+  map <silent> <leader>qs <Esc>:let @/ = ""<CR>
   " }}}
 
   " Find merge conflict markers {{{
