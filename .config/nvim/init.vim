@@ -263,8 +263,9 @@ augroup general_config
   " au BufReadPost,BufNewFile * set relativenumber
   " }}}
 
-  " Make commands {{{
-  nnoremap <leader>mm :make -j<CR>
+  " Move code in visual mode {{{
+  vnoremap J :m '>+1<CR>gv=gv
+  vnoremap K :m '>-2<CR>gv=gv
   " }}}
 
 augroup END
