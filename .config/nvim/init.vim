@@ -38,16 +38,9 @@ set background=dark
 syntax on
 colorscheme challenger_deep
 
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
-"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 if (has("termguicolors"))
   set termguicolors
 endif
@@ -66,79 +59,42 @@ set nowritebackup
 " }}}
 
 " Set some basic stuff {{{
-set autoindent " Copy indent from last line when starting new line
 set autoread " Set to auto read when a file is changed from the outside
-set backspace=indent,eol,start
 set cmdheight=2 " Give more space for displaying messages.
 set cursorline " Highlight current line
-set diffopt=filler " Add vertical spaces to keep right and left aligned
-set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
 set expandtab " Expand tabs to spaces
 set nofoldenable " Disable folding
-set formatoptions=
-set formatoptions+=c " Format comments
-set formatoptions+=r " Continue comments by default
-set formatoptions+=o " Make comment when using o or O from comment line
-set formatoptions+=q " Format comments with gq
-set formatoptions+=n " Recognize numbered lists
-set formatoptions+=2 " Use indent from 2nd line of a paragraph
-set formatoptions+=l " Don't break lines that are already long
-set formatoptions+=1 " Break before 1-letter words
-set gdefault " By default add g flag to search/replace. Add g to toggle
 set hidden " When a buffer is brought to foreground, remember undo history and marks
-set history=1000 " Increase history from 20 default to 1000
+set history=100 " Increase history
 set hlsearch " Highlight searches
 set ignorecase " Ignore case of searches
 set incsearch " Highlight dynamically as pattern is typed
 set laststatus=2 " Always show status line
 set lazyredraw " Don't redraw when we don't have to
-set lispwords+=defroutes " Compojure
-set lispwords+=defpartial,defpage " Noir core
-set lispwords+=defaction,deffilter,defview,defsection " Ciste core
-set lispwords+=describe,it " Speclj TDD/BDD
-set magic " Enable extended regexes
-set mouse=a " Enable mouse in all modes
 set noerrorbells " Disable error bells
-set nojoinspaces " Only insert single space after a '.', '?' and '!' with a join command
 set noshowmode " Don't show the current mode (lightline.vim takes care of us)
-set nostartofline " Don't reset cursor to start of line when moving around
 set nowrap " Do not wrap lines
 set nu " Enable line numbers
-set ofu=syntaxcomplete#Complete " Set omni-completion method
 set regexpengine=1 " Use the old regular expression engine (it's faster for certain language syntaxes)
-set relativenumber
-set report=0 " Show all changes
-set ruler " Show the cursor position
+set relativenumber " Relative line numbers
 set scrolloff=3 " Start scrolling three lines before horizontal border of window
 set shell=/bin/zsh " Use /bin/sh for executing shell commands
-set shiftwidth=2 " The # of spaces for indenting
+set shiftwidth=4 " The # of spaces for indenting
 set shortmess+=c " Don't give ins-completion-menu messages
 set showtabline=2 " Always show tab bar
-set si " Smart indent
 set sidescrolloff=3 " Start scrolling three columns before vertical border of window
 set signcolumn=yes " Always show signcolumns
 set smartcase " Ignore 'ignorecase' if search pattern contains uppercase characters
 set smarttab " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces
-set softtabstop=2 " Tab key results in 4 spaces
+set softtabstop=4 " Tab key results in 4 spaces
 set splitbelow " New window goes below
 set splitright " New windows goes right
-set suffixes=.bak,~,.swp,.swo,.o,.d,.info,.aux,.log,.dvi,.pdf,.bin,.bbl,.blg,.brf,.cb,.dmg,.exe,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.pyd,.dll
-set switchbuf=""
-set tabstop=2
-set title " Show the filename in the window titlebar
+set tabstop=4
 set ttyfast " Send more characters at a given time
 set undofile " Persistent Undo
-set updatetime=300 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience
+set updatetime=100 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
-set wildchar=<TAB> " Character for CLI expansion (TAB-completion)
-set wildignore+=.DS_Store
-set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
-set wildignore+=*/bower_components/*,*/node_modules/*
-set wildignore+=*/smarty/*,*/vendor/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*,*/doc/*,*/source_maps/*,*/dist/*
-set wildmenu " Hitting TAB in command mode will show possible completions above command line
-set wildmode=list:longest " Complete only until point of ambiguity
-set winminheight=0 " Allow splits to be reduced to a single line
 set wrapscan " Searches wrap around end of file
 " }}}
 
@@ -214,7 +170,7 @@ augroup general_config
   " }}}
 
   " Display all lines with keyword under cursor and ask which one to jump to {{{
-  nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+  " nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
   " }}}
 
   " Yank from cursor to end of line {{{
@@ -242,8 +198,8 @@ augroup general_config
   " }}}
 
   " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search) {{{
-  map <space> /
-  map <c-space> ?
+  " map <space> /
+  " map <c-space> ?
   " }}}
 
   " Toggle relative line numbers {{{
@@ -262,7 +218,7 @@ augroup END
 augroup buffer_control
   autocmd!
 
-  " Buffer navigation (,,) (gb) (gB) (,ls) {{{
+  " Buffer navigation (,,) (,b) (gb) (gB) {{{
   map <leader>, <C-^>
   map <leader>b :Buffers<CR>
   map gb :bnext<CR>
@@ -492,8 +448,8 @@ augroup coc_config
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
 
-  " Use <c-.> to trigger completion.
-  inoremap <silent><expr> <c-.> coc#refresh()
+  " Use <c-space> to trigger completion.
+  inoremap <silent><expr> <c-space> coc#refresh()
 
   " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
   " position. Coc only does snippet and additional edit on confirm.
@@ -530,6 +486,16 @@ augroup coc_config
   " Symbol renaming.
   nmap <leader>rn <Plug>(coc-rename)
 
+  " Applying codeAction to the selected region.
+  " Example: `<leader>aap` for current paragraph
+  xmap <leader>a  <Plug>(coc-codeaction-selected)
+  nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+  " Remap keys for applying codeAction to the current buffer.
+  nmap <leader>ac  <Plug>(coc-codeaction)
+  " Apply AutoFix to problem on the current line.
+  nmap <leader>qf  <Plug>(coc-fix-current)
+
   " Introduce function text object
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
   xmap if <Plug>(coc-funcobj-i)
@@ -559,24 +525,24 @@ augroup coc_config
 
   " Mappings for CoCList
   " Show all diagnostics.
-  " nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+  nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
   " Manage extensions.
-  " nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+  nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
   " Show commands.
-  " nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+  nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
   " Find symbol of current document.
-  " nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+  nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
   " Search workspace symbols.
-  " nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+  nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
   " Do default action for next item.
-  " nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+  nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
-  " nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+  nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
   " Resume latest coc list.
-  " nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+  nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
   " Implement methods for trait
-  " nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<CR>
+  nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<CR>
   " Show actions available at this location
   " nnoremap <silent> <space>a  :CocAction<CR>
 augroup END
