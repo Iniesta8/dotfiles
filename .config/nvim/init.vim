@@ -20,7 +20,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
 Plug 'airblade/vim-rooter'              " Rooter changes the working directory to the project root when you open a file or directory
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose command-line fuzzy finder
 Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] } " vim-which-key is vim port of emacs-which-key that displays available keybindings in popup
 
 call plug#end()
 " }}}
@@ -108,6 +107,7 @@ set nowrap " Do not wrap lines
 set nu " Enable line numbers
 set ofu=syntaxcomplete#Complete " Set omni-completion method
 set regexpengine=1 " Use the old regular expression engine (it's faster for certain language syntaxes)
+set relativenumber
 set report=0 " Show all changes
 set ruler " Show the cursor position
 set scrolloff=3 " Start scrolling three lines before horizontal border of window
@@ -163,11 +163,6 @@ endif
 augroup general_config
   autocmd!
 
-  " Speed up viewport scrolling {{{
-  " nnoremap <C-e> 3<C-e>
-  " nnoremap <C-y> 3<C-y>
-  " }}}
-
   " Faster split resizing (+,-) {{{
   if bufwinnr(1)
     map + <C-W>+
@@ -203,19 +198,12 @@ augroup general_config
   nmap <leader>w :w!<CR>
   " }}}
 
-  " Better mark jumping (line + col) {{{
-  nnoremap ' `
-  " }}}
-
   " Toggle show tabs and trailing spaces (,c) {{{
   set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
   set fcs=fold:-
   nnoremap <silent> <leader>c :set nolist!<CR>
   " }}}
 
-  " Stop searching (ctrl + h) {{{
-	" vnoremap <C-h> :nohlsearch<CR>
-	" nnoremap <C-h> :nohlsearch<CR>
 	" Clear last search (,qs)
   map <silent> <leader>qs <Esc>:noh<CR>
   map <silent> <leader>qs <Esc>:let @/ = ""<CR>
@@ -260,7 +248,6 @@ augroup general_config
 
   " Toggle relative line numbers {{{
   nnoremap <leader>N :setlocal relativenumber!<CR>
-  " au BufReadPost,BufNewFile * set relativenumber
   " }}}
 
   " Move code in visual mode {{{
@@ -274,10 +261,6 @@ augroup END
 " Buffers {{{
 augroup buffer_control
   autocmd!
-
-  " Prompt for buffer to select (,bs) {{{
-  " nnoremap <leader>bs :CtrlPBuffer<CR>
-  " }}}
 
   " Buffer navigation (,,) (gb) (gB) (,ls) {{{
   map <leader>, <C-^>
@@ -294,55 +277,6 @@ augroup buffer_control
   endwhile
   " }}}
 
-  " Close Quickfix window (,qq) {{{
-  " map <leader>qq :cclose<CR>
-  " }}}
-augroup END
-" }}}
-
-" Jumping to tags {{{
-augroup jump_to_tags
-  autocmd!
-
-  " Basically, <c-]> jumps to tags (like normal) and <c-\> opens the tag in a new
-  " split instead.
-  "
-  " Both of them will align the destination line to the upper middle part of the
-  " screen.  Both will pulse the cursor line so you can see where the hell you
-  " are.  <c-\> will also fold everything in the buffer and then unfold just
-  " enough for you to see the destination line.
-  nnoremap <c-]> <c-]>mzzvzz15<c-e>`z:Pulse<CR>
-  nnoremap <c-\> <c-w>v<c-]>mzzMzvzz15<c-e>`z:Pulse<CR>
-
-  " Pulse Line (thanks Steve Losh)
-  function! s:Pulse() " {{{
-    redir => old_hi
-    silent execute 'hi CursorLine'
-    redir END
-    let old_hi = split(old_hi, '\n')[0]
-    let old_hi = substitute(old_hi, 'xxx', '', '')
-
-    let steps = 8
-    let width = 1
-    let start = width
-    let end = steps * width
-    let color = 233
-
-    for i in range(start, end, width)
-      execute "hi CursorLine ctermbg=" . (color + i)
-      redraw
-      sleep 6m
-    endfor
-    for i in range(end, start, -1 * width)
-      execute "hi CursorLine ctermbg=" . (color + i)
-      redraw
-      sleep 6m
-    endfor
-
-    execute 'hi ' . old_hi
-  endfunction " }}}
-
-  command! -nargs=0 Pulse call s:Pulse()
 augroup END
 " }}}
 
@@ -645,13 +579,6 @@ augroup coc_config
   " nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<CR>
   " Show actions available at this location
   " nnoremap <silent> <space>a  :CocAction<CR>
-augroup END
-" }}}
-
-" which key {{{
-augroup which_key_config
-  autocmd!
-  nnoremap <silent> <leader> :WhichKey '<leader>'<CR>
 augroup END
 " }}}
 
