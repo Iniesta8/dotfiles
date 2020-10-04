@@ -2,7 +2,7 @@
 
 " Plugins -------------------------------------------------------------
 
-" Load plugins {{{
+" Load plugins
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'itchyny/lightline.vim'            " A light and configurable statusline/tabline plugin for Vim
@@ -22,17 +22,13 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose c
 Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
 
 call plug#end()
-" }}}
 
 " Settings -------------------------------------------------------------
 
-" Preamble {{{
-
-" Make vim more useful {{{
+" Make vim more useful
 set nocompatible
-" }}}
 
-" Syntax highlighting {{{
+" Syntax highlighting
 set t_Co=256
 set background=dark
 syntax on
@@ -44,21 +40,18 @@ endif
 if (has("termguicolors"))
   set termguicolors
 endif
-" }}}
 
-" Mapleader {{{
+" Mapleader
 let mapleader=","
 let g:mapleader=","
-" }}}
 
-" Directories {{{
+" Directories
 set undodir=~/.vim/undo//
 set directory=~/.vim/swap//
 set nobackup " Some servers have issues with backup files
 set nowritebackup
-" }}}
 
-" Set some basic stuff {{{
+" Set some basic stuff
 set autoread " Set to auto read when a file is changed from the outside
 set cmdheight=2 " Give more space for displaying messages.
 set cursorline " Highlight current line
@@ -76,7 +69,6 @@ set noerrorbells " Disable error bells
 set noshowmode " Don't show the current mode (lightline.vim takes care of us)
 set nowrap " Do not wrap lines
 set nu " Enable line numbers
-set regexpengine=1 " Use the old regular expression engine (it's faster for certain language syntaxes)
 set relativenumber " Relative line numbers
 set scrolloff=3 " Start scrolling three lines before horizontal border of window
 set shell=/bin/zsh " Use /bin/sh for executing shell commands
@@ -96,14 +88,11 @@ set undofile " Persistent Undo
 set updatetime=100 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 set wrapscan " Searches wrap around end of file
-" }}}
-
-" }}}
 
 
 " Configuration -------------------------------------------------------------
 
-" FastEscape {{{
+" FastEscape
 " Speed up transition from modes
 if ! has('gui_running')
   set ttimeoutlen=10
@@ -113,238 +102,192 @@ if ! has('gui_running')
     au InsertLeave * set timeoutlen=1000
   augroup END
 endif
-" }}}
 
-" General {{{
-augroup general_config
-  autocmd!
+" General
+" Faster split resizing (+,-)
+if bufwinnr(1)
+  map + <C-W>+
+  map - <C-W>-
+endif
 
-  " Faster split resizing (+,-) {{{
-  if bufwinnr(1)
-    map + <C-W>+
-    map - <C-W>-
-  endif
-  " }}}
+" Better split switching (Ctrl-j, Ctrl-k, Ctrl-h, Ctrl-l)
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-H> <C-W>h
+map <C-L> <C-W>l
 
-  " Better split switching (Ctrl-j, Ctrl-k, Ctrl-h, Ctrl-l) {{{
-  map <C-j> <C-W>j
-  map <C-k> <C-W>k
-  map <C-H> <C-W>h
-  map <C-L> <C-W>l
-  " }}}
+" Sudo write (,W)
+noremap <leader>W :w !sudo tee %<CR>
 
-  " Sudo write (,W) {{{
-  noremap <leader>W :w !sudo tee %<CR>
-  " }}}
+" Quickly close the current window (,Q) or current buffer (,q)
+nnoremap <leader>Q :q<CR>
+nnoremap <leader>q :bd<CR>
 
-  " Quickly close the current window (,Q) or current buffer (,q) {{{
-  nnoremap <leader>Q :q<CR>
-  nnoremap <leader>q :bd<CR>
-  " }}}
+" Get output of shell commands
+command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 
-  " Get output of shell commands {{{
-  command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
-  " }}}
+" Remap :W to :w
+command! W w
 
-  " Remap :W to :w {{{
-  command! W w
-  " }}}
+" Fast saving
+nmap <leader>w :w!<CR>
 
-  " Fast saving {{{
-  nmap <leader>w :w!<CR>
-  " }}}
+" Toggle show tabs and trailing spaces (,c)
+set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
+set fcs=fold:-
+nnoremap <silent> <leader>c :set nolist!<CR>
 
-  " Toggle show tabs and trailing spaces (,c) {{{
-  set lcs=tab:›\ ,trail:·,eol:¬,nbsp:_
-  set fcs=fold:-
-  nnoremap <silent> <leader>c :set nolist!<CR>
-  " }}}
+" Clear last search (,qs)
+map <silent> <leader>qs <Esc>:noh<CR>
+map <silent> <leader>qs <Esc>:let @/ = ""<CR>
 
-	" Clear last search (,qs)
-  map <silent> <leader>qs <Esc>:noh<CR>
-  map <silent> <leader>qs <Esc>:let @/ = ""<CR>
-  " }}}
+" Find merge conflict markers
+map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
-  " Find merge conflict markers {{{
-  map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
-  " }}}
+" Display all lines with keyword under cursor and ask which one to jump to
+" nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
-  " Display all lines with keyword under cursor and ask which one to jump to {{{
-  " nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-  " }}}
+" Yank from cursor to end of line
+nnoremap Y y$
 
-  " Yank from cursor to end of line {{{
-  nnoremap Y y$
-  " }}}
+" Search and replace word under cursor (,*)
+nnoremap <leader>* :%s/\<<C-r><C-w>\>//<Left>
+vnoremap <leader>* "hy:%s/\V<C-r>h//<left>
 
-  " Search and replace word under cursor (,*) {{{
-  nnoremap <leader>* :%s/\<<C-r><C-w>\>//<Left>
-  vnoremap <leader>* "hy:%s/\V<C-r>h//<left>
-  " }}}
+" Strip trailing whitespace (,ss)
+function! StripWhitespace ()
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace ()<CR>
 
-  " Strip trailing whitespace (,ss) {{{
-  function! StripWhitespace () " {{{
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    :%s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-  endfunction " }}}
-  noremap <leader>ss :call StripWhitespace ()<CR>
-  " }}}
+" Join lines and restore cursor location (J)
+nnoremap J mjJ`j
 
-  " Join lines and restore cursor location (J) {{{
-  nnoremap J mjJ`j
-  " }}}
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+" map <space> /
+" map <c-space> ?
 
-  " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search) {{{
-  " map <space> /
-  " map <c-space> ?
-  " }}}
+" Toggle relative line numbers
+nnoremap <leader>N :setlocal relativenumber!<CR>
 
-  " Toggle relative line numbers {{{
-  nnoremap <leader>N :setlocal relativenumber!<CR>
-  " }}}
+" Move code in visual mode
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '>-2<CR>gv=gv
 
-  " Move code in visual mode {{{
-  vnoremap J :m '>+1<CR>gv=gv
-  vnoremap K :m '>-2<CR>gv=gv
-  " }}}
+" Buffers
+" Buffer navigation (,,) (,b) (gb) (gB)
+map <leader>, <C-^>
+map <leader>b :Buffers<CR>
+map gb :bnext<CR>
+map gB :bprev<CR>
 
-augroup END
-" }}}
+" Jump to buffer number (<N>gb)
+let c = 1
+while c <= 99
+  execute "nnoremap " . c . "gb :" . c . "b\<CR>"
+  let c += 1
+endwhile
 
-" Buffers {{{
-augroup buffer_control
-  autocmd!
+" Highlight Interesting Words
+" This mini-plugin provides a few mappings for highlighting words temporarily.
+"
+" Sometimes you're looking at a hairy piece of code and would like a certain
+" word or two to stand out temporarily.  You can search for it, but that only
+" gives you one color of highlighting.  Now you can use <leader>N where N is
+" a number from 1-6 to highlight the current word in a specific color.
+function! HiInterestingWord(n)
+  " Save our location.
+  normal! mz
 
-  " Buffer navigation (,,) (,b) (gb) (gB) {{{
-  map <leader>, <C-^>
-  map <leader>b :Buffers<CR>
-  map gb :bnext<CR>
-  map gB :bprev<CR>
-  " }}}
+  " Yank the current word into the z register.
+  normal! "zyiw
 
-  " Jump to buffer number (<N>gb) {{{
-  let c = 1
-  while c <= 99
-    execute "nnoremap " . c . "gb :" . c . "b\<CR>"
-    let c += 1
-  endwhile
-  " }}}
+  " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+  let mid = 86750 + a:n
 
-augroup END
-" }}}
+  " Clear existing matches, but don't worry if they don't exist.
+  silent! call matchdelete(mid)
 
-" Highlight Interesting Words {{{
-augroup highlight_interesting_word
-  autocmd!
-  " This mini-plugin provides a few mappings for highlighting words temporarily.
-  "
-  " Sometimes you're looking at a hairy piece of code and would like a certain
-  " word or two to stand out temporarily.  You can search for it, but that only
-  " gives you one color of highlighting.  Now you can use <leader>N where N is
-  " a number from 1-6 to highlight the current word in a specific color.
-  function! HiInterestingWord(n) " {{{
-    " Save our location.
-    normal! mz
+  " Construct a literal pattern that has to match at boundaries.
+  let pat = '\V\<' . escape(@z, '\') . '\>'
 
-    " Yank the current word into the z register.
-    normal! "zyiw
+  " Actually match the words.
+  call matchadd("InterestingWord" . a:n, pat, 1, mid)
 
-    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
-    let mid = 86750 + a:n
+  " Move back to our original location.
+  normal! `z
+endfunction
 
-    " Clear existing matches, but don't worry if they don't exist.
-    silent! call matchdelete(mid)
+" Mappings
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<CR>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<CR>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<CR>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<CR>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<CR>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<CR>
 
-    " Construct a literal pattern that has to match at boundaries.
-    let pat = '\V\<' . escape(@z, '\') . '\>'
+" Default Highlights
+hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
+hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
+hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
+hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
+hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
+hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 
-    " Actually match the words.
-    call matchadd("InterestingWord" . a:n, pat, 1, mid)
-
-    " Move back to our original location.
-    normal! `z
-  endfunction " }}}
-
-  " Mappings {{{
-  nnoremap <silent> <leader>1 :call HiInterestingWord(1)<CR>
-  nnoremap <silent> <leader>2 :call HiInterestingWord(2)<CR>
-  nnoremap <silent> <leader>3 :call HiInterestingWord(3)<CR>
-  nnoremap <silent> <leader>4 :call HiInterestingWord(4)<CR>
-  nnoremap <silent> <leader>5 :call HiInterestingWord(5)<CR>
-  nnoremap <silent> <leader>6 :call HiInterestingWord(6)<CR>
-  " }}}
-
-  " Default Highlights {{{
-  hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
-  hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
-  hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
-  hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
-  hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
-  hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
-  " }}}
-augroup END
-" }}}
-
-" Restore Cursor Position {{{
+" Restore Cursor Position
 augroup restore_cursor
   autocmd!
-
   autocmd BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
 augroup END
-" }}}
 
-" Search files and file content (grep) {{{
-augroup search_config
-	if executable('rg')
-		set grepprg=rg\ --no-heading\ --vimgrep
-		set grepformat=%f:%l:%c:%m
-	endif
+" Search files and file content (grep)
+if executable('rg')
+  set grepprg=rg\ --no-heading\ --vimgrep
+  set grepformat=%f:%l:%c:%m
+endif
 
-	" fzf default command is sourced in .zshrc, so that fzf uses rg for
-	" searching:
-	"		export FZF_DEFAULT_COMMAND='rg --files --hidden'
+" fzf default command is sourced in .zshrc, so that fzf uses rg for
+" searching:
+"		export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
-	" fuzzy search for files (fzf + rg)
-	nnoremap <C-p> :Files<CR>
+" fuzzy search for files (fzf + rg)
+nnoremap <C-p> :Files<CR>
 
-	" fuzzy grep for file content (fzf + rg)
-	nnoremap <leader>rg :Rg<CR>
-
-augroup END
-" }}}
+" fuzzy grep for file content (fzf + rg)
+nnoremap <leader>rg :Rg<CR>
 
 " Plugin Configuration -------------------------------------------------------------
 
-" Lightline.vim {{{
+" Lightline.vim
 augroup lightline_config
-	autocmd!
-	let g:lightline = {
-		\ 'colorscheme': 'challenger_deep',
-		\ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-    \ },
-    \ 'component_function': {
-    \   'filename': 'LightlineFilename',
-    \   'cocstatus': 'coc#status'
-    \ },
-    \ }
-	function! LightlineFilename()
-	  return expand('%:t') !=# '' ? @% : '[No Name]'
-	endfunction
+  autocmd!
+  let g:lightline = {
+  	\ 'colorscheme': 'challenger_deep',
+  	\ 'active': {
+  \   'left': [ [ 'mode', 'paste' ],
+  \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+  \ },
+  \ 'component_function': {
+  \   'filename': 'LightlineFilename',
+  \   'cocstatus': 'coc#status'
+  \ },
+  \ }
+  function! LightlineFilename()
+    return expand('%:t') !=# '' ? @% : '[No Name]'
+  endfunction
 
-	" Use autocmd to force lightline update
-	autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  " Use autocmd to force lightline update
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 augroup END
-" }}}
 
-" NERDtree {{{
+" NERDtree
 augroup nerdtree_config
   autocmd!
   let g:NERDTreeWinPos = "left"
@@ -359,18 +302,13 @@ augroup nerdtree_config
   map <leader>n :NERDTreeFocus<CR>
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
-" }}}
 
-" Syntastic.vim {{{
-augroup syntastic_config
-  autocmd!
-  let g:syntastic_error_symbol = '✗'
-  let g:syntastic_warning_symbol = '⚠'
-  let g:syntastic_cpp_compiler_options = '-std=c++2a'
-augroup END
-" }}}
+" Syntastic.vim
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_cpp_compiler_options = '-std=c++2a'
 
-" Fugitive {{{
+" Fugitive
 augroup fugitive_config
   autocmd!
   nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -388,9 +326,8 @@ augroup fugitive_config
   " Refresh Signify after commit
   au FileType gitcommit au! BufDelete COMMIT_EDITMSG SignifyRefresh
 augroup END
-" }}}
 
-" vim-clang-format {{{
+" vim-clang-format
 augroup clang_format_config
   autocmd!
   let g:clang_format#detect_style_file = 1
@@ -403,27 +340,18 @@ augroup clang_format_config
   " auto-enabling auto-formatting
   autocmd FileType c ClangFormatAutoEnable
 augroup END
-" }}}
 
-" NERD Commenter {{{
-augroup nerd_commenter_config
-  autocmd!
-  let NERDSpaceDelims = 1
-  let NERDCompactSexyComs = 1
-  let g:NERDTrimTrailingWhitespace = 1
-  let g:NERDCommentEmptyLines = 1
-  let g:NERDCustomDelimiters = { 'c': { 'left': '//' } }
-augroup END
-" }}}
+" NERD Commenter
+let NERDSpaceDelims = 1
+let NERDCompactSexyComs = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDCommentEmptyLines = 1
+let g:NERDCustomDelimiters = { 'c': { 'left': '//' } }
 
-" Rust {{{
-augroup rust_config
-  autocmd!
-  let g:rustfmt_autosave = 1
-augroup END
-" }}}
+" Rust
+let g:rustfmt_autosave = 1
 
-" coc {{{
+" coc
 augroup coc_config
   autocmd!
   let g:coc_global_extensions = [
@@ -546,6 +474,4 @@ augroup coc_config
   " Show actions available at this location
   " nnoremap <silent> <space>a  :CocAction<CR>
 augroup END
-" }}}
 
-"
