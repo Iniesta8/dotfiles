@@ -14,6 +14,8 @@ Plug 'tpope/vim-surround'               " surround.vim: quoting/parenthesizing m
 Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf
 Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } " Challenger Deep Theme for VIM
+" Plug 'morhetz/gruvbox'
+" Plug 'arcticicestudio/nord-vim'
 Plug 'rust-lang/rust.vim'               " This is a Vim plugin that provides Rust support
 Plug 'cespare/vim-toml'                 " Vim syntax for TOML
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
@@ -359,6 +361,7 @@ augroup coc_config
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-json',
+  \ 'coc-cmake',
   \ ]
 
   " 'Smart' navigation
@@ -455,7 +458,7 @@ augroup coc_config
   " Show all diagnostics.
   nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
   " Manage extensions.
-  nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+  " nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
   " Show commands.
   nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
   " Find symbol of current document.
