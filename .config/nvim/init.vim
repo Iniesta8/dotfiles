@@ -14,8 +14,8 @@ Plug 'tpope/vim-surround'               " surround.vim: quoting/parenthesizing m
 Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf
 Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } " Challenger Deep Theme for VIM
-" Plug 'morhetz/gruvbox'
-" Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
 Plug 'rust-lang/rust.vim'               " This is a Vim plugin that provides Rust support
 Plug 'cespare/vim-toml'                 " Vim syntax for TOML
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
@@ -271,15 +271,15 @@ nnoremap <leader>rg :Rg<CR>
 augroup lightline_config
   autocmd!
   let g:lightline = {
-  	\ 'colorscheme': 'challenger_deep',
-  	\ 'active': {
+  \   'colorscheme': 'challenger_deep',
+  \   'active': {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-  \ },
-  \ 'component_function': {
-  \   'filename': 'LightlineFilename',
-  \   'cocstatus': 'coc#status'
-  \ },
+  \   },
+  \   'component_function': {
+  \     'filename': 'LightlineFilename',
+  \     'cocstatus': 'coc#status'
+  \   },
   \ }
   function! LightlineFilename()
     return expand('%:t') !=# '' ? @% : '[No Name]'
@@ -458,7 +458,7 @@ augroup coc_config
   " Show all diagnostics.
   nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
   " Manage extensions.
-  " nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+  nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
   " Show commands.
   nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
   " Find symbol of current document.
@@ -471,9 +471,8 @@ augroup coc_config
   nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
   " Resume latest coc list.
   nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
   " Implement methods for trait
-  nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<CR>
+  nnoremap <silent><nowait> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<CR>
   " Show actions available at this location
   " nnoremap <silent> <space>a  :CocAction<CR>
 augroup END
