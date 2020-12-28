@@ -14,8 +14,6 @@ Plug 'tpope/vim-surround'               " surround.vim: quoting/parenthesizing m
 Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf
 Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } " Challenger Deep Theme for VIM
-Plug 'morhetz/gruvbox'
-Plug 'arcticicestudio/nord-vim'
 Plug 'rust-lang/rust.vim'               " This is a Vim plugin that provides Rust support
 Plug 'cespare/vim-toml'                 " Vim syntax for TOML
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
@@ -271,22 +269,15 @@ nnoremap <leader>rg :Rg<CR>
 augroup lightline_config
   autocmd!
   let g:lightline = {
-  \   'colorscheme': 'challenger_deep',
-  \   'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-  \   },
-  \   'component_function': {
-  \     'filename': 'LightlineFilename',
-  \     'cocstatus': 'coc#status'
-  \   },
-  \ }
-  function! LightlineFilename()
-    return expand('%:t') !=# '' ? @% : '[No Name]'
-  endfunction
-
-  " Use autocmd to force lightline update
-  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  \  'colorscheme': 'challenger_deep',
+  \  'active': {
+  \    'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified', 'cocstatus', 'gitbranch']],
+  \  },
+  \  'component_function': {
+  \    'cocstatus': 'coc#status',
+  \    'gitbranch': 'FugitiveHead',
+  \  },
+  \}
 augroup END
 
 " NERDtree
@@ -357,7 +348,6 @@ let g:rustfmt_autosave = 1
 augroup coc_config
   autocmd!
   let g:coc_global_extensions = [
-  \ 'coc-rust-analyzer',
   \ 'coc-snippets',
   \ 'coc-pairs',
   \ 'coc-json',
