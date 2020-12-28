@@ -20,6 +20,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
 Plug 'airblade/vim-rooter'              " Rooter changes the working directory to the project root when you open a file or directory
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose command-line fuzzy finder
 Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
+Plug 'embark-theme/vim', { 'as': 'embark' }
 
 call plug#end()
 
