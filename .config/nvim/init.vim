@@ -20,8 +20,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
 Plug 'airblade/vim-rooter'              " Rooter changes the working directory to the project root when you open a file or directory
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose command-line fuzzy finder
 Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
+Plug 'arcticicestudio/nord-vim'
 " Plug 'embark-theme/vim', { 'as': 'embark' }
-Plug 'rakr/vim-one'
+" Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 
 call plug#end()
 
@@ -30,11 +31,8 @@ call plug#end()
 " Make vim more useful
 set nocompatible
 
-" Syntax highlighting
-set t_Co=256
-set background=dark
-syntax on
-colorscheme one "challenger_deep
+" set t_Co=256
+" set background=dark
 
 if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -42,6 +40,10 @@ endif
 if (has("termguicolors"))
   set termguicolors
 endif
+
+" Syntax highlighting
+colorscheme nord
+syntax on
 
 " Mapleader
 let mapleader=","
@@ -271,7 +273,7 @@ nnoremap <leader>rg :Rg<CR>
 augroup lightline_config
   autocmd!
   let g:lightline = {
-  \  'colorscheme': 'one',
+  \  'colorscheme': 'nord',
   \  'active': {
   \    'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified', 'cocstatus', 'gitbranch']],
   \  },
