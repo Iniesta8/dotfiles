@@ -1,5 +1,4 @@
 env:
-  TERM: alacritty
   COLORTERM: truecolor
 
 window:

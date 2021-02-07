@@ -303,7 +303,7 @@ augroup END
 " Syntastic.vim
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
-let g:syntastic_cpp_compiler_options = '-std=c++2a'
+let g:syntastic_cpp_compiler_options = '-std=c++20'
 
 " Fugitive
 augroup fugitive_config
