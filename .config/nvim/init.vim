@@ -20,9 +20,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
 Plug 'airblade/vim-rooter'              " Rooter changes the working directory to the project root when you open a file or directory
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose command-line fuzzy finder
 Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
-Plug 'arcticicestudio/nord-vim'
-" Plug 'embark-theme/vim', { 'as': 'embark' }
-" Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
+Plug 'simonsmith/material.vim'
 
 call plug#end()
 
@@ -32,7 +30,7 @@ call plug#end()
 set nocompatible
 
 " set t_Co=256
-" set background=dark
+set background=dark
 
 if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -42,7 +40,7 @@ if (has("termguicolors"))
 endif
 
 " Syntax highlighting
-colorscheme nord
+colorscheme material
 syntax on
 
 " Mapleader
@@ -273,7 +271,7 @@ nnoremap <leader>rg :Rg<CR>
 augroup lightline_config
   autocmd!
   let g:lightline = {
-  \  'colorscheme': 'nord',
+  \  'colorscheme': 'material',
   \  'active': {
   \    'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified', 'cocstatus', 'gitbranch']],
   \  },
