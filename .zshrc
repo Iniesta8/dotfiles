@@ -99,7 +99,7 @@ alias vim=/usr/bin/nvim
 alias dev=/home/andi/init.sh
 alias gpa='gp && gp gitlab'
 
-# export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
