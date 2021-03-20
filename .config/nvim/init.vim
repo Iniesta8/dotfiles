@@ -125,9 +125,6 @@ noremap <leader>W :w !sudo tee %<CR>
 nnoremap <leader>Q :q<CR>
 nnoremap <leader>q :bd<CR>
 
-" Get output of shell commands
-command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
-
 " Remap :W to :w
 command! W w
 
@@ -168,10 +165,6 @@ noremap <leader>ss :call StripWhitespace ()<CR>
 
 " Join lines and restore cursor location (J)
 nnoremap J mjJ`j
-
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-" map <space> /
-" map <c-space> ?
 
 " Toggle relative line numbers
 nnoremap <leader>N :setlocal relativenumber!<CR>
@@ -249,7 +242,7 @@ augroup restore_cursor
     \ endif
 augroup END
 
-" Search files and file content (grep)
+" Search files and file content (rg)
 if executable('rg')
   set grepprg=rg\ --no-heading\ --vimgrep
   set grepformat=%f:%l:%c:%m
