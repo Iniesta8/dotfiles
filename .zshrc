@@ -68,6 +68,9 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+export TERMINAL=/usr/bin/alacritty
+export EDITOR=/usr/bin/nvim
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
