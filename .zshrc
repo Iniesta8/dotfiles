@@ -98,7 +98,6 @@ export EDITOR=/usr/bin/nvim
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-alias vim=/usr/bin/nvim
 alias dev=/home/andi/init.sh
 alias gpa='gp && gp gitlab'
 

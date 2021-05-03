@@ -13,14 +13,14 @@ Plug 'tpope/vim-fugitive'               " A Git wrapper so awesome, it should be
 Plug 'tpope/vim-surround'               " surround.vim: quoting/parenthesizing made simple
 Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf
 Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' } " Challenger Deep Theme for VIM
 Plug 'rust-lang/rust.vim'               " This is a Vim plugin that provides Rust support
 Plug 'cespare/vim-toml'                 " Vim syntax for TOML
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
 Plug 'airblade/vim-rooter'              " Rooter changes the working directory to the project root when you open a file or directory
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose command-line fuzzy finder
 Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
-Plug 'simonsmith/material.vim'
+Plug 'simonsmith/material.vim'          " A dark color scheme for Vim/Neovim based on the Material color scheme
+Plug 'editorconfig/editorconfig-vim'    " EditorConfig plugin for Vim
 
 call plug#end()
 
@@ -299,11 +299,11 @@ let g:syntastic_cpp_compiler_options = '-std=c++20'
 " Fugitive
 augroup fugitive_config
   autocmd!
-  nnoremap <silent> <leader>gs :Gstatus<CR>
+  nnoremap <silent> <leader>gs :Git<CR>
   nnoremap <silent> <leader>gd :Gdiff<CR>
-  nnoremap <silent> <leader>gc :Gcommit<CR>
-  nnoremap <silent> <leader>gb :Gblame<CR>
-  nnoremap <silent> <leader>gl :Glog<CR>
+  nnoremap <silent> <leader>gc :Git commit<CR>
+  nnoremap <silent> <leader>gb :Git blame<CR>
+  nnoremap <silent> <leader>gl :Gclog<CR>
   nnoremap <silent> <leader>gp :Git push<CR>
   nnoremap <silent> <leader>gr :Gread<CR>
   nnoremap <silent> <leader>gw :Gwrite<CR>
@@ -381,9 +381,10 @@ augroup coc_config
 
   " GoTo code navigation.
   nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gD <Plug>(coc-declaration)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
+  nmap <silent> gr <Plug>(coc-references-used)
 
   " Use K to show documentation in preview window.
   nnoremap <silent> K :call <SID>show_documentation()<CR>
