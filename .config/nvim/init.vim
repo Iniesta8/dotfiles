@@ -347,6 +347,9 @@ augroup coc_config
   \ 'coc-pairs',
   \ 'coc-json',
   \ 'coc-cmake',
+  \ 'coc-clangd',
+  \ 'coc-rust-analyzer',
+  \ 'coc-pyright',
   \ ]
 
   " 'Smart' navigation

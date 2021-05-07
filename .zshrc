@@ -68,8 +68,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export TERMINAL=/usr/bin/alacritty
-export EDITOR=/usr/bin/nvim
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -77,11 +75,12 @@ export EDITOR=/usr/bin/nvim
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR=/usr/bin/nvim
+  export TERMINAL=/usr/bin/gnome-terminal
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -101,7 +100,12 @@ export EDITOR=/usr/bin/nvim
 alias dev=/home/andi/init.sh
 alias gpa='gp && gp gitlab'
 
-export PATH="$HOME/.cargo/bin:$PATH"
-
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
+
+PATH="$HOME/.local/bin:$PATH"
+
+# Remove duplicates from PATH
+PATH=$(python -c "import os; path = os.environ['PATH'].split(':'); print(':'.join(sorted(set(path), key=path.index)))")
+
+export PATH
 
