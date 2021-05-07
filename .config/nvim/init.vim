@@ -21,6 +21,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose c
 Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
 Plug 'simonsmith/material.vim'          " A dark color scheme for Vim/Neovim based on the Material color scheme
 Plug 'editorconfig/editorconfig-vim'    " EditorConfig plugin for Vim
+Plug 'folke/tokyonight.nvim'            " A clean, dark Neovim theme
 
 call plug#end()
 
@@ -40,7 +41,8 @@ if (has("termguicolors"))
 endif
 
 " Syntax highlighting
-colorscheme material
+let g:tokyonight_style = "night"
+colorscheme tokyonight
 syntax on
 
 " Mapleader
@@ -48,8 +50,6 @@ let mapleader=","
 let g:mapleader=","
 
 " Directories
-set undodir=~/.vim/undo//
-set directory=~/.vim/swap//
 set nobackup " Some servers have issues with backup files
 set nowritebackup
 
