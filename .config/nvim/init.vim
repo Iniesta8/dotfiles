@@ -8,19 +8,19 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'itchyny/lightline.vim'            " A light and configurable statusline/tabline plugin for Vim
 Plug 'preservim/nerdtree'               " A tree explorer plugin for vim
 Plug 'preservim/nerdcommenter'          " Vim plugin for intensely nerdy commenting powers
+Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
+Plug 'editorconfig/editorconfig-vim'    " EditorConfig plugin for Vim
 Plug 'vim-syntastic/syntastic'          " Syntax checking hacks for vim
 Plug 'tpope/vim-fugitive'               " A Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-surround'               " surround.vim: quoting/parenthesizing made simple
 Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf
-Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
 Plug 'rust-lang/rust.vim'               " This is a Vim plugin that provides Rust support
+Plug 'airblade/vim-rooter'              " Rooter changes the working directory to the project root when you open a file or directory
 Plug 'cespare/vim-toml'                 " Vim syntax for TOML
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
-Plug 'airblade/vim-rooter'              " Rooter changes the working directory to the project root when you open a file or directory
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose command-line fuzzy finder
 Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
 Plug 'simonsmith/material.vim'          " A dark color scheme for Vim/Neovim based on the Material color scheme
-Plug 'editorconfig/editorconfig-vim'    " EditorConfig plugin for Vim
 Plug 'folke/tokyonight.nvim'            " A clean, dark Neovim theme
 
 call plug#end()
@@ -30,28 +30,24 @@ call plug#end()
 " Make vim more useful
 set nocompatible
 
-" set t_Co=256
 set background=dark
 
-if (has("nvim"))
+if (has('nvim'))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
-if (has("termguicolors"))
+if (has('termguicolors'))
   set termguicolors
 endif
 
 " Syntax highlighting
-let g:tokyonight_style = "night"
+let g:tokyonight_style = 'night'
+let g:tokyonight_italic_keywords = 0
+let g:tokyonight_italic_comments = 0
 colorscheme tokyonight
 syntax on
 
 " Mapleader
-let mapleader=","
-let g:mapleader=","
-
-" Directories
-set nobackup " Some servers have issues with backup files
-set nowritebackup
+let g:mapleader=','
 
 " Set some basic stuff
 set autoread " Set to auto read when a file is changed from the outside
@@ -59,7 +55,6 @@ set cmdheight=2 " Give more space for displaying messages.
 set cursorline " Highlight current line
 set encoding=utf-8 nobomb " BOM often causes trouble
 set expandtab " Expand tabs to spaces
-set nofoldenable " Disable folding
 set hidden " When a buffer is brought to foreground, remember undo history and marks
 set history=100 " Increase history
 set hlsearch " Highlight searches
@@ -67,12 +62,15 @@ set ignorecase " Ignore case of searches
 set incsearch " Highlight dynamically as pattern is typed
 set laststatus=2 " Always show status line
 set lazyredraw " Don't redraw when we don't have to
+set nobackup " Some servers have issues with backup files
 set noerrorbells " Disable error bells
+set nofoldenable " Disable folding
 set noshowmode " Don't show the current mode (lightline.vim takes care of us)
 set nowrap " Do not wrap lines
+set nowritebackup
 set nu " Enable line numbers
 set relativenumber " Relative line numbers
-set scrolloff=3 " Start scrolling three lines before horizontal border of window
+set scrolloff=8 " Start scrolling three lines before horizontal border of window
 set shell=/bin/zsh " Use /bin/sh for executing shell commands
 set shiftwidth=4 " The # of spaces for indenting
 set shortmess+=c " Don't give ins-completion-menu messages
@@ -84,7 +82,7 @@ set smarttab " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes s
 set softtabstop=4 " Tab key results in 4 spaces
 set splitbelow " New window goes below
 set splitright " New windows goes right
-set tabstop=4
+set tabstop=4 " Tab width
 set ttyfast " Send more characters at a given time
 set undofile " Persistent Undo
 set updatetime=100 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience
@@ -100,8 +98,8 @@ if ! has('gui_running')
   set ttimeoutlen=10
   augroup FastEscape
     autocmd!
-    au InsertEnter * set timeoutlen=0
-    au InsertLeave * set timeoutlen=1000
+    autocmd InsertEnter * set timeoutlen=0
+    autocmd InsertLeave * set timeoutlen=1000
   augroup END
 endif
 
@@ -143,9 +141,6 @@ map <silent> <leader>qs <Esc>:let @/ = ""<CR>
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
-" Display all lines with keyword under cursor and ask which one to jump to
-" nmap <leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
 " Yank from cursor to end of line
 nnoremap Y y$
 
@@ -155,13 +150,13 @@ vnoremap <leader>* "hy:%s/\V<C-r>h//<left>
 
 " Strip trailing whitespace (,ss)
 function! StripWhitespace ()
-  let save_cursor = getpos(".")
+  let save_cursor = getpos('.')
   let old_query = getreg('/')
   :%s/\s\+$//e
   call setpos('.', save_cursor)
   call setreg('/', old_query)
 endfunction
-noremap <leader>ss :call StripWhitespace ()<CR>
+nnoremap <leader>ss :call StripWhitespace ()<CR>
 
 " Join lines and restore cursor location (J)
 nnoremap J mjJ`j
@@ -183,7 +178,7 @@ map gB :bprev<CR>
 " Jump to buffer number (<N>gb)
 let c = 1
 while c <= 99
-  execute "nnoremap " . c . "gb :" . c . "b\<CR>"
+  execute 'nnoremap ' . c . 'gb :' . c . 'b\<CR>'
   let c += 1
 endwhile
 
@@ -191,7 +186,7 @@ endwhile
 augroup restore_cursor
   autocmd!
   autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \ if line("'\"") > 1 && line("'\"") <= line('$') |
     \   exe "normal! g`\"" |
     \ endif
 augroup END
@@ -215,34 +210,31 @@ nnoremap <leader>rg :Rg<CR>
 " Plugin Configuration -------------------------------------------------------------
 
 " Lightline.vim
-augroup lightline_config
-  autocmd!
-  let g:lightline = {
-  \  'colorscheme': 'material',
-  \  'active': {
-  \    'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified', 'cocstatus', 'gitbranch']],
-  \  },
-  \  'component_function': {
-  \    'cocstatus': 'coc#status',
-  \    'gitbranch': 'FugitiveHead',
-  \  },
-  \}
-augroup END
+let g:lightline = {
+\  'colorscheme': 'material',
+\  'active': {
+\    'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified', 'cocstatus', 'gitbranch']],
+\  },
+\  'component_function': {
+\    'cocstatus': 'coc#status',
+\    'gitbranch': 'FugitiveHead',
+\  },
+\}
 
 " NERDtree
 augroup nerdtree_config
   autocmd!
-  let g:NERDTreeWinPos = "left"
+  let g:NERDTreeWinPos = 'left'
   let g:NERDTreeWinSize = 35
-  let NERDTreeShowFiles = 1
-  let NERDTreeShowHidden = 1
-  let NERDTreeIgnore = [ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
+  let g:NERDTreeShowFiles = 1
+  let g:NERDTreeShowHidden = 1
+  let g:NERDTreeIgnore = [ '\.pyc$', '\.pyo$', '\.py\$class$', "\.obj$",
             \ '\.o$', '\.so$', '\.egg$', '^\.git$', '__pycache__', '\.DS_Store' ]
   map <leader>nn :NERDTreeToggle<CR>
   map <leader>nb :NERDTreeFromBookmark<Space>
   map <leader>nf :NERDTreeFind<CR>
   map <leader>n :NERDTreeFocus<CR>
-  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif
 augroup END
 
 " Syntastic.vim
@@ -266,7 +258,7 @@ augroup fugitive_config
   nnoremap <silent> <leader>gg :SignifyToggle<CR>
   nnoremap <silent> <leader>gu :SignifyRefresh<CR>
   " Refresh Signify after commit
-  au FileType gitcommit au! BufDelete COMMIT_EDITMSG SignifyRefresh
+  autocmd FileType gitcommit autocmd! BufDelete COMMIT_EDITMSG SignifyRefresh
 augroup END
 
 " vim-clang-format
@@ -284,8 +276,8 @@ augroup clang_format_config
 augroup END
 
 " NERD Commenter
-let NERDSpaceDelims = 1
-let NERDCompactSexyComs = 1
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDCommentEmptyLines = 1
 let g:NERDCustomDelimiters = { 'c': { 'left': '//' } }
@@ -293,7 +285,7 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '//' } }
 " Rust
 let g:rustfmt_autosave = 1
 
-" coc
+" Coc
 augroup coc_config
   autocmd!
   let g:coc_global_extensions = [
@@ -311,8 +303,8 @@ augroup coc_config
   " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
   " other plugin before putting this into your config.
   inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
+        \ pumvisible() ? '\<C-n>' :
+        \ <SID>check_back_space() ? '\<TAB>' :
         \ coc#refresh()
   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
