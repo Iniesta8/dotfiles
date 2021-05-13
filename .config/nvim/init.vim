@@ -38,14 +38,14 @@ if (has('termguicolors'))
 endif
 
 " Syntax highlighting
-let g:tokyonight_style = 'night'
+let g:tokyonight_style = "night"
 let g:tokyonight_italic_keywords = 0
 let g:tokyonight_italic_comments = 0
 colorscheme tokyonight
 syntax on
 
 " Mapleader
-let g:mapleader=','
+let g:mapleader=","
 
 " Set some basic stuff
 set autoread " Set to auto read when a file is changed from the outside
@@ -74,7 +74,6 @@ set shiftwidth=4 " The # of spaces for indenting
 set shortmess+=c " Don't give ins-completion-menu messages
 set showtabline=2 " Always show tab bar
 set sidescrolloff=3 " Start scrolling three columns before vertical border of window
-set signcolumn=yes " Always show signcolumns
 set smartcase " Ignore 'ignorecase' if search pattern contains uppercase characters
 set smarttab " At start of line, <Tab> inserts shiftwidth spaces, <Bs> deletes shiftwidth spaces
 set softtabstop=4 " Tab key results in 4 spaces
@@ -86,6 +85,15 @@ set undofile " Persistent Undo
 set updatetime=100 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 set wrapscan " Searches wrap around end of file
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has('nvim-0.5.0') || has('patch-8.1.1564')
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 
 " Configuration -------------------------------------------------------------
@@ -222,7 +230,7 @@ let g:lightline = {
 " Syntastic.vim
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
-let g:syntastic_cpp_compiler_options = '-std=c++20'
+let g:syntastic_cpp_compiler_options = "-std=c++20"
 
 " vim-clang-format
 augroup clang_format_config
@@ -252,13 +260,13 @@ let g:rustfmt_autosave = 1
 augroup coc_config
   autocmd!
   let g:coc_global_extensions = [
-  \ 'coc-snippets',
-  \ 'coc-pairs',
-  \ 'coc-json',
-  \ 'coc-cmake',
-  \ 'coc-clangd',
-  \ 'coc-rust-analyzer',
-  \ 'coc-pyright',
+  \ "coc-snippets",
+  \ "coc-pairs",
+  \ "coc-json",
+  \ "coc-cmake",
+  \ "coc-clangd",
+  \ "coc-rust-analyzer",
+  \ "coc-pyright",
   \ ]
 
   " 'Smart' navigation
@@ -266,8 +274,8 @@ augroup coc_config
   " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
   " other plugin before putting this into your config.
   inoremap <silent><expr> <TAB>
-        \ pumvisible() ? '\<C-n>' :
-        \ <SID>check_back_space() ? '\<TAB>' :
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
         \ coc#refresh()
   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
@@ -279,7 +287,7 @@ augroup coc_config
   " Use <c-space> to trigger completion.
   inoremap <silent><expr> <c-space> coc#refresh()
 
-  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+  " Use <CR> to confirm completion, `<C-g>u` means break undo chain at current
   " position. Coc only does snippet and additional edit on confirm.
   if exists('*complete_info')
     inoremap <expr> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -304,8 +312,10 @@ augroup coc_config
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+      call CocActionAsync('doHover')
     else
-      call CocAction('doHover')
+      execute '!' . &keywordprg . " " . expand('<cword>')
     endif
   endfunction
 
@@ -354,15 +364,15 @@ augroup coc_config
 
   " Mappings for CoCList
   " Show all diagnostics.
-  " nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+  " nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<CR>
   " Manage extensions.
-  nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+  nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<CR>
   " Show commands.
-  nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+  nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<CR>
   " Find symbol of current document.
-  nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+  nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<CR>
   " Search workspace symbols.
-  nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+  nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<CR>
   " Do default action for next item.
   nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
   " Do default action for previous item.
