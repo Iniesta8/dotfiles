@@ -10,7 +10,6 @@ Plug 'preservim/nerdcommenter'          " Vim plugin for intensely nerdy comment
 Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
 Plug 'editorconfig/editorconfig-vim'    " EditorConfig plugin for Vim
 Plug 'vim-syntastic/syntastic'          " Syntax checking hacks for vim
-Plug 'tpope/vim-fugitive'               " A Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-surround'               " surround.vim: quoting/parenthesizing made simple
 Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf
 Plug 'rust-lang/rust.vim'               " This is a Vim plugin that provides Rust support
@@ -224,25 +223,6 @@ let g:lightline = {
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_cpp_compiler_options = '-std=c++20'
-
-" Fugitive
-augroup fugitive_config
-  autocmd!
-  nnoremap <silent> <leader>gs :Git<CR>
-  nnoremap <silent> <leader>gd :Gdiff<CR>
-  nnoremap <silent> <leader>gc :Git commit<CR>
-  nnoremap <silent> <leader>gb :Git blame<CR>
-  nnoremap <silent> <leader>gl :Gclog<CR>
-  nnoremap <silent> <leader>gp :Git push<CR>
-  nnoremap <silent> <leader>gr :Gread<CR>
-  nnoremap <silent> <leader>gw :Gwrite<CR>
-  nnoremap <silent> <leader>ge :Gedit<CR>
-  nnoremap <silent> <leader>gi :Git add -p %<CR>
-  nnoremap <silent> <leader>gg :SignifyToggle<CR>
-  nnoremap <silent> <leader>gu :SignifyRefresh<CR>
-  " Refresh Signify after commit
-  autocmd FileType gitcommit autocmd! BufDelete COMMIT_EDITMSG SignifyRefresh
-augroup END
 
 " vim-clang-format
 augroup clang_format_config
