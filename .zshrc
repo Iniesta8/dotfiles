@@ -97,8 +97,10 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-alias dev=/home/andi/init.sh
+alias dev='/home/andi/init.sh'
 alias gpa='gp && gp gitlab'
+alias lg='lazygit'
+alias vim='nvim'
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 

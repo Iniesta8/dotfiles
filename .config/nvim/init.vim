@@ -171,7 +171,7 @@ vnoremap K :m '>-2<CR>gv=gv
 " Buffers
 " Buffer navigation (,,) (,b) (gb) (gB)
 map <leader>, <C-^>
-map <leader>b :Buffers<CR>
+map <silent> <leader>b :Buffers<CR>
 map gb :bnext<CR>
 map gB :bprev<CR>
 
@@ -202,10 +202,10 @@ endif
 "		export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 " fuzzy search for files (fzf + rg)
-nnoremap <C-p> :Files<CR>
+nnoremap <silent> <C-p> :Files<CR>
 
 " fuzzy grep for file content (fzf + rg)
-nnoremap <leader>rg :Rg<CR>
+nnoremap <silent> <leader>rg :Rg<CR>
 
 " Plugin Configuration -------------------------------------------------------------
 
@@ -391,7 +391,7 @@ augroup coc_config
 
   " Mappings for CoCList
   " Show all diagnostics.
-  nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+  " nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
   " Manage extensions.
   nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
   " Show commands.
@@ -409,6 +409,6 @@ augroup coc_config
   " Implement methods for trait
   nnoremap <silent><nowait> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<CR>
   " Show actions available at this location
-  " nnoremap <silent> <space>a  :CocAction<CR>
+  nnoremap <silent> <space>a  :CocAction<CR>
 augroup END
 
