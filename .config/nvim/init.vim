@@ -6,7 +6,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'itchyny/lightline.vim'            " A light and configurable statusline/tabline plugin for Vim
-Plug 'preservim/nerdtree'               " A tree explorer plugin for vim
 Plug 'preservim/nerdcommenter'          " Vim plugin for intensely nerdy commenting powers
 Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
 Plug 'editorconfig/editorconfig-vim'    " EditorConfig plugin for Vim
@@ -220,22 +219,6 @@ let g:lightline = {
 \    'gitbranch': 'FugitiveHead',
 \  },
 \}
-
-" NERDtree
-augroup nerdtree_config
-  autocmd!
-  let g:NERDTreeWinPos = 'left'
-  let g:NERDTreeWinSize = 35
-  let g:NERDTreeShowFiles = 1
-  let g:NERDTreeShowHidden = 1
-  let g:NERDTreeIgnore = [ '\.pyc$', '\.pyo$', '\.py\$class$', "\.obj$",
-            \ '\.o$', '\.so$', '\.egg$', '^\.git$', '__pycache__', '\.DS_Store' ]
-  map <leader>nn :NERDTreeToggle<CR>
-  map <leader>nb :NERDTreeFromBookmark<Space>
-  map <leader>nf :NERDTreeFind<CR>
-  map <leader>n :NERDTreeFocus<CR>
-  autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif
-augroup END
 
 " Syntastic.vim
 let g:syntastic_error_symbol = '✗'
