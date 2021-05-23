@@ -108,6 +108,9 @@ PATH="$HOME/.local/bin:$PATH"
 
 # Remove duplicates from PATH
 PATH=$(python -c "import os; path = os.environ['PATH'].split(':'); print(':'.join(sorted(set(path), key=path.index)))")
-
 export PATH
+
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+    tmux a -t dev || exec tmux new -s dev && exit;
+fi
 
