@@ -217,7 +217,7 @@ nnoremap <silent> <leader>rg :Rg<CR>
 
 " Lightline.vim
 let g:lightline = {
-\  'colorscheme': 'material',
+\  'colorscheme': 'tokyonight',
 \  'active': {
 \    'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified', 'cocstatus', 'gitbranch']],
 \  },
