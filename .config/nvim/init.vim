@@ -18,7 +18,6 @@ Plug 'cespare/vim-toml'                 " Vim syntax for TOML
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose command-line fuzzy finder
 Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
-Plug 'simonsmith/material.vim'          " A dark color scheme for Vim/Neovim based on the Material color scheme
 Plug 'folke/tokyonight.nvim'            " A clean, dark Neovim theme
 
 call plug#end()
