@@ -98,7 +98,6 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 alias gpa='gp && gp gitlab'
-alias lg='lazygit'
 alias vim='nvim'
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'

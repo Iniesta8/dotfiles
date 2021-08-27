@@ -1,4 +1,8 @@
-[/]
+[legacy/profiles:]
+default='703c9a57-be26-4109-82ec-23532a37ff90'
+list=['703c9a57-be26-4109-82ec-23532a37ff90']
+
+[legacy/profiles:/:703c9a57-be26-4109-82ec-23532a37ff90]
 audible-bell=false
 background-color='rgb(26,27,38)'
 bold-color-same-as-fg=true
