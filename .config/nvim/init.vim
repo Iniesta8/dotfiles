@@ -48,7 +48,6 @@ let g:mapleader=","
 
 " Set some basic stuff
 set autoread " Set to auto read when a file is changed from the outside
-set cmdheight=2 " Give more space for displaying messages.
 set cursorline " Highlight current line
 set encoding=utf-8 nobomb " BOM often causes trouble
 set expandtab " Expand tabs to spaces
