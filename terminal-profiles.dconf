@@ -1,0 +1,46 @@
+[profiles:]
+default='a3f11008-2440-4991-b37d-8bf34de6be47'
+list=['703c9a57-be26-4109-82ec-23532a37ff90', 'a3f11008-2440-4991-b37d-8bf34de6be47', '313cf5ca-1e58-4c65-aed8-5d9dd981a2d5']
+
+[profiles:/:313cf5ca-1e58-4c65-aed8-5d9dd981a2d5]
+audible-bell=false
+background-color='rgb(40,40,40)'
+bold-color-same-as-fg=true
+bold-is-bright=true
+font='Fira Code 12'
+foreground-color='rgb(235,219,178)'
+palette=['rgb(40,40,40)', 'rgb(204,36,29)', 'rgb(152,151,26)', 'rgb(215,153,33)', 'rgb(69,133,136)', 'rgb(177,98,134)', 'rgb(104,157,106)', 'rgb(168,153,132)', 'rgb(146,131,116)', 'rgb(251,73,52)', 'rgb(184,187,38)', 'rgb(250,189,47)', 'rgb(131,165,152)', 'rgb(211,134,155)', 'rgb(142,192,124)', 'rgb(235,219,178)']
+scrollbar-policy='never'
+use-system-font=false
+use-theme-colors=false
+use-transparent-background=false
+visible-name='Gruvbox'
+
+[profiles:/:703c9a57-be26-4109-82ec-23532a37ff90]
+audible-bell=false
+background-color='rgb(26,27,38)'
+bold-color-same-as-fg=true
+bold-is-bright=true
+font='Fira Code 12'
+foreground-color='rgb(169,177,214)'
+palette=['rgb(65,72,104)', 'rgb(247,118,142)', 'rgb(115,218,202)', 'rgb(224,175,104)', 'rgb(122,162,247)', 'rgb(187,154,247)', 'rgb(125,207,255)', 'rgb(192,202,245)', 'rgb(65,72,104)', 'rgb(247,118,142)', 'rgb(115,218,202)', 'rgb(224,175,104)', 'rgb(122,162,247)', 'rgb(187,154,247)', 'rgb(125,207,255)', 'rgb(192,202,245)']
+scrollbar-policy='never'
+use-system-font=false
+use-theme-colors=false
+use-transparent-background=false
+visible-name='Tokyonight'
+
+[profiles:/:a3f11008-2440-4991-b37d-8bf34de6be47]
+audible-bell=false
+background-color='rgb(28,28,28)'
+background-transparency-percent=45
+bold-is-bright=true
+cursor-colors-set=false
+font='Fira Code 12'
+foreground-color='rgb(208,208,208)'
+palette=['rgb(28,28,28)', 'rgb(175,0,95)', 'rgb(95,175,0)', 'rgb(215,175,95)', 'rgb(95,175,215)', 'rgb(128,128,128)', 'rgb(215,135,95)', 'rgb(208,208,208)', 'rgb(88,88,88)', 'rgb(95,175,95)', 'rgb(175,215,0)', 'rgb(175,135,215)', 'rgb(255,175,0)', 'rgb(255,95,175)', 'rgb(0,175,175)', 'rgb(95,135,135)']
+scrollbar-policy='never'
+use-system-font=false
+use-theme-colors=false
+use-transparent-background=false
+visible-name='PaperColor'

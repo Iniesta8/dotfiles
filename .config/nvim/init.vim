@@ -3,7 +3,7 @@
 " Plugins -------------------------------------------------------------
 
 " Load plugins
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'itchyny/lightline.vim'            " A light and configurable statusline/tabline plugin for Vim
 Plug 'preservim/nerdcommenter'          " Vim plugin for intensely nerdy commenting powers
@@ -19,6 +19,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose command-line fuzzy finder
 Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
 Plug 'folke/tokyonight.nvim'            " A clean, dark Neovim theme
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'gruvbox-community/gruvbox'
 
 call plug#end()
 
@@ -37,10 +39,12 @@ if (has('termguicolors'))
 endif
 
 " Syntax highlighting
-let g:tokyonight_style = "night"
-let g:tokyonight_italic_keywords = 0
-let g:tokyonight_italic_comments = 0
-colorscheme tokyonight
+" let g:tokyonight_style = "night"
+" let g:tokyonight_italic_keywords = 0
+" let g:tokyonight_italic_comments = 0
+" colorscheme tokyonight
+" colorscheme gruvbox
+colorscheme PaperColor
 syntax on
 
 " Mapleader
@@ -215,7 +219,7 @@ nnoremap <silent> <leader>rg :Rg<CR>
 
 " Lightline.vim
 let g:lightline = {
-\  'colorscheme': 'tokyonight',
+\  'colorscheme': 'PaperColor',
 \  'active': {
 \    'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified', 'cocstatus', 'gitbranch']],
 \  },
@@ -267,7 +271,6 @@ augroup coc_config
   \ "coc-pyright",
   \ ]
 
-  " 'Smart' navigation
   " Use tab for trigger completion with characters ahead and navigate.
   " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
   " other plugin before putting this into your config.
