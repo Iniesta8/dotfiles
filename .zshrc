@@ -62,7 +62,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-open)
+plugins=(git git-open zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -97,10 +97,11 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
+alias lg='lazygit'
 alias gpa='gp && gp gitlab'
 alias vim='nvim'
 
-export FZF_DEFAULT_COMMAND='rg --files --hidden'
+export FZF_DEFAULT_COMMAND="rg --files --hidden"
 
 PATH="$HOME/.local/bin:$PATH"
 

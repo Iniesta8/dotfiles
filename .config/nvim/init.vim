@@ -11,6 +11,7 @@ Plug 'machakann/vim-highlightedyank'    " Make the yanked region apparent!
 Plug 'editorconfig/editorconfig-vim'    " EditorConfig plugin for Vim
 Plug 'vim-syntastic/syntastic'          " Syntax checking hacks for vim
 Plug 'tpope/vim-surround'               " surround.vim: quoting/parenthesizing made simple
+Plug 'tpope/vim-fugitive'               " fugitive.vim: A Git wrapper so awesome, it should be illegal
 Plug 'rhysd/vim-clang-format'           " Vim plugin for clang-format, a formatter for C, C++, Obj-C, Java, JavaScript, TypeScript and ProtoBuf
 Plug 'rust-lang/rust.vim'               " This is a Vim plugin that provides Rust support
 Plug 'airblade/vim-rooter'              " Rooter changes the working directory to the project root when you open a file or directory
@@ -19,8 +20,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf is a general-purpose command-line fuzzy finder
 Plug 'junegunn/fzf.vim'                 " Things you can do with fzf and Vim
 Plug 'folke/tokyonight.nvim'            " A clean, dark Neovim theme
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'gruvbox-community/gruvbox'
 
 call plug#end()
 
@@ -39,12 +38,10 @@ if (has('termguicolors'))
 endif
 
 " Syntax highlighting
-" let g:tokyonight_style = "night"
-" let g:tokyonight_italic_keywords = 0
-" let g:tokyonight_italic_comments = 0
-" colorscheme tokyonight
-" colorscheme gruvbox
-colorscheme PaperColor
+let g:tokyonight_style = "night"
+let g:tokyonight_italic_keywords = 0
+let g:tokyonight_italic_comments = 0
+colorscheme tokyonight
 syntax on
 
 " Mapleader
@@ -219,7 +216,7 @@ nnoremap <silent> <leader>rg :Rg<CR>
 
 " Lightline.vim
 let g:lightline = {
-\  'colorscheme': 'PaperColor',
+\  'colorscheme': 'tokyonight',
 \  'active': {
 \    'left': [['mode', 'paste'], ['readonly', 'relativepath', 'modified', 'cocstatus', 'gitbranch']],
 \  },
