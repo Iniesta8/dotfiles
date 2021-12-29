@@ -40,7 +40,6 @@ return require('packer').startup(function()
       require"surround".setup {mappings_style = "surround"}
     end
   }
-  use 'preservim/nerdcommenter'
   use 'machakann/vim-highlightedyank'
   use 'rhysd/vim-clang-format'
 end)
