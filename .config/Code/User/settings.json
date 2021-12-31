@@ -1,17 +1,11 @@
 {
-  "editor.fontFamily": "'Fira Code','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "editor.fontLigatures": true,
-  "editor.fontSize": 16,
-  "workbench.colorTheme": "Tokyo Night",
   "editor.lineNumbers": "relative",
   "editor.formatOnSave": true,
   "html.format.extraLiners": "",
-  "workbench.editorAssociations": [
-    {
-      "viewType": "jupyter.notebook.ipynb",
-      "filenamePattern": "*.ipynb"
-    }
-  ],
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb"
+  },
   "editor.tokenColorCustomizations": {
     "[Tokyo Night]": {
       "textMateRules": [
@@ -76,4 +70,19 @@
     "<C-a>": false,
     "<C-f>": false
   },
+  "vim.commandLineModeKeyBindings": [],
+  "editor.cursorBlinking": "solid",
+  "editor.cursorStyle": "line",
+  "editor.insertSpaces": false,
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+  "editor.wordWrap": "off",
+  "editor.fontSize": 16,
+  "editor.fontFamily": "'JetBrains Mono','Fira Code','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "workbench.colorTheme": "Tokyo Night",
+  "python.defaultInterpreterPath": "/bin/python",
+  "window.titleBarStyle": "custom",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
+  },
+  "C_Cpp.formatting": "clangFormat"
 }
