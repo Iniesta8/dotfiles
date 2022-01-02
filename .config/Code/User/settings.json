@@ -84,5 +84,6 @@
   "[python]": {
     "editor.defaultFormatter": "ms-python.python"
   },
-  "C_Cpp.formatting": "clangFormat"
+  "C_Cpp.formatting": "clangFormat",
+  "telemetry.telemetryLevel": "off"
 }
