@@ -20,6 +20,7 @@ vim.o.showmode = false
 vim.o.showtabline = 2
 vim.o.signcolumn = 'number'
 vim.o.smartcase = true
+vim.o.clipboard = 'unnamed'
 
 vim.api.nvim_set_keymap('n', 'vs', ':vs<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'sp', ':sp<CR>', { noremap = true })
