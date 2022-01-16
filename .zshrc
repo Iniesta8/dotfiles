@@ -79,7 +79,7 @@ if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   export EDITOR=/usr/bin/nvim
-  export TERMINAL=/usr/bin/gnome-terminal
+  export TERMINAL=/usr/bin/alacritty
 fi
 
 # Compilation flags
