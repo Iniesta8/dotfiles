@@ -2,22 +2,10 @@ require('basics')
 require('bindings')
 require('colors')
 require('telescope-config')
+require('treesitter-config')
 require('coc-config')
 require('functions')
 require('lualine').setup()
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  context_commentstring = {
-    enable = true
-  },
-  highlight = {
-    enable = true
-  },
-  -- indent = {
-  --   enable = true
-  -- }
-}
 
 return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
@@ -25,7 +13,6 @@ return require('packer').startup(function()
   use 'folke/tokyonight.nvim'
   use 'nvim-treesitter/nvim-treesitter'
   use 'tpope/vim-commentary'
-  use 'ThePrimeagen/git-worktree.nvim'
   use {
     'nvim-lualine/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
@@ -42,4 +29,5 @@ return require('packer').startup(function()
   }
   use 'machakann/vim-highlightedyank'
   use 'rhysd/vim-clang-format'
+  use 'rust-lang/rust.vim'
 end)

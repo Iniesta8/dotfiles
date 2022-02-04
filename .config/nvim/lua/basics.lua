@@ -22,6 +22,8 @@ vim.o.signcolumn = 'number'
 vim.o.smartcase = true
 vim.o.clipboard = 'unnamed'
 
+vim.g.rustfmt_autosave = 1
+
 vim.api.nvim_set_keymap('n', 'vs', ':vs<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'sp', ':sp<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-L>', '<C-W><C-L>', { noremap = true })
