@@ -19,3 +19,4 @@ vim.cmd([[
     " auto-enabling auto-formatting
     autocmd FileType c ClangFormatAutoEnable
 ]])
+
