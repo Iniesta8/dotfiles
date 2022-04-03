@@ -6,4 +6,5 @@ vim.api.nvim_set_keymap('n', '<leader>,', '<C-^>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>qs', '<Esc>:noh<CR>', { noremap = true })
 -- find merge conflict markers
 vim.api.nvim_set_keymap('n', '<leader>fc', '/\\v^[<\\|=>]{7}( .*\\|$)<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>gg', ':LazyGit<CR>', { noremap = true, silent = true })
 

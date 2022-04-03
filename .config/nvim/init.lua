@@ -30,4 +30,5 @@ return require('packer').startup(function()
   use 'machakann/vim-highlightedyank'
   use 'rhysd/vim-clang-format'
   use 'rust-lang/rust.vim'
+  use 'kdheepak/lazygit.nvim'
 end)

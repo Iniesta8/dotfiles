@@ -98,6 +98,7 @@ fi
 #
 alias gpa='gp && gp gitlab'
 alias vim='nvim'
+alias lg='lazygit'
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
