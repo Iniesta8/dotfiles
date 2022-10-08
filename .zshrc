@@ -98,11 +98,10 @@ fi
 #
 alias gpa='gp && gp gitlab'
 alias vim='nvim'
-alias lg='lazygit'
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
-PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 # Remove duplicates from PATH
 PATH=$(python -c "import os; path = os.environ['PATH'].split(':'); print(':'.join(sorted(set(path), key=path.index)))")

@@ -1,11 +1,20 @@
-vim.g.tokyonight_style = 'night'
+-- vim.g.tokyonight_style = 'night'
+-- vim.cmd [[ colorscheme tokyonight ]]
 
-vim.cmd([[
-augroup transparent_bg
-  autocmd!
-  autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-augroup END
+vim.g.nord_contrast = true
+vim.g.nord_italic = false
+require('nord').set()
+vim.cmd [[ colorscheme nord ]]
 
-colorscheme tokyonight
-]])
+-- vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+-- require("catppuccin").setup()
+-- vim.cmd [[colorscheme catppuccin]]
+
+-- vim.cmd [[colorscheme nord]]
+
+require('lualine').setup {
+  options = {
+    theme = 'nord'
+  }
+}
 

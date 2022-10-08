@@ -3,9 +3,6 @@
   "editor.lineNumbers": "relative",
   "editor.formatOnSave": true,
   "html.format.extraLiners": "",
-  "workbench.editorAssociations": {
-    "*.ipynb": "jupyter.notebook.ipynb"
-  },
   // "editor.tokenColorCustomizations": {
   //   "[Tokyo Night]": {
   //     "textMateRules": [
@@ -70,13 +67,12 @@
     "<C-a>": false,
     "<C-f>": false
   },
-  "vim.commandLineModeKeyBindings": [],
   "editor.cursorBlinking": "solid",
   "editor.cursorStyle": "line",
   "editor.insertSpaces": false,
   "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
   "editor.wordWrap": "off",
-  "editor.fontFamily": "'JetBrains Mono','Fira Code','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "editor.fontFamily": "'JetBrains Mono','Fira Code','Droid Sans Mono', monospace, 'Droid Sans Fallback'",
   "python.defaultInterpreterPath": "/bin/python",
   "window.titleBarStyle": "custom",
   "[python]": {
@@ -86,6 +82,10 @@
   "telemetry.telemetryLevel": "off",
   "C_Cpp.clang_format_fallbackStyle": "LLVM",
   "editor.defaultFormatter": "xaver.clang-format",
-  "workbench.colorTheme": "Tokyo Night",
-  "editor.fontSize": 16
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "C_Cpp.intelliSenseEngine": "Disabled",
+  "cmake.configureOnOpen": true,
+  "editor.stickyScroll.enabled": true,
+  "workbench.colorTheme": "Nord"
 }
