@@ -48,9 +48,6 @@ require('packer').startup(function(use)
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
 
-  -- Formatting
-  use 'rhysd/vim-clang-format'
-
   -- use 'Mofiqul/vscode.nvim'
   use { "catppuccin/nvim", as = "catppuccin" }
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
@@ -61,8 +58,8 @@ require('packer').startup(function(use)
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
 
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+  -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -159,22 +156,24 @@ vim.keymap.set('n', '<leader>W', ':w!<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>q', ':q<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>Q', ':bd<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>,', '<C-^>', { noremap = true })
--- find merge conflict markers
-vim.keymap.set('n', '<leader>fc', '/\\v^[<\\|=>]{7}( .*\\|$)<CR>', { noremap = true })
+vim.keymap.set('n', '<leader>fc', '/\\v^[<\\|=>]{7}( .*\\|$)<CR>', { noremap = true }) -- find merge conflict markers
 vim.keymap.set('n', 'vs', ':vs<CR>', { noremap = true })
 vim.keymap.set('n', 'sp', ':sp<CR>', { noremap = true })
 vim.keymap.set('n', '<C-L>', '<C-W><C-L>', { noremap = true })
 vim.keymap.set('n', '<C-H>', '<C-W><C-H>', { noremap = true })
 vim.keymap.set('n', '<C-K>', '<C-W><C-K>', { noremap = true })
 vim.keymap.set('n', '<C-J>', '<C-W><C-J>', { noremap = true })
--- vim.keymap.set('n', 'tn', ':tabnew<CR>', { noremap = true })
--- vim.keymap.set('n', 'tk', ':tabnext<CR>', { noremap = true })
--- vim.keymap.set('n', 'tj', ':tabprev<CR>', { noremap = true })
--- vim.keymap.set('n', 'to', ':tabo<CR>', { noremap = true })
 vim.keymap.set('n', '<C-S>', ':%s/', { noremap = true })
-vim.keymap.set('n', '<C-N>', ":Lexplore<CR> :vertical resize 30<CR>", { noremap = true })
-vim.keymap.set("n", "<leader>t", ":sp<CR> :term<CR> :resize 20N<CR> i", { noremap = true, silent = true })
+vim.keymap.set('n', '<C-N>', ':Lexplore<CR> :vertical resize 30<CR>', { noremap = true })
+vim.keymap.set("n", '<leader>t', ':sp<CR> :term<CR> :resize 20N<CR> i', { noremap = true, silent = true })
+vim.keymap.set("n", 'J', 'mzJ`z', { noremap = true })
 -- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
+
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, { noremap = true })
+
+-- Move code blocks
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true })
+vim.keymap.set('v', 'K', ":m '>-2<CR>gv=gv", { noremap = true })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -365,7 +364,11 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
+
+  -- Auto format buffer on save
+  vim.cmd [[autocmd BufWritePre <buffer> :Format]]
 end
+
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -471,15 +474,6 @@ vim.cmd([[
     call setreg('/', old_query)
   endfunction
   nnoremap <leader>ss :call StripWhitespace()<CR>
-
-  " Configure clang-format
-  autocmd!
-  let g:clang_format#detect_style_file = 1
-  let g:clang_format#auto_format = 1
-  " Toggle auto formatting:
-  nnoremap <leader>C :ClangFormatAutoToggle<CR>
-  " auto-enabling auto-formatting
-  autocmd FileType c ClangFormatAutoEnable
 ]])
 
 -- The line beneath this is called `modeline`. See `:help modeline`
