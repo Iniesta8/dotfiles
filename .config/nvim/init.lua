@@ -50,6 +50,7 @@ require('packer').startup(function(use)
 
   -- use 'Mofiqul/vscode.nvim'
   use { "catppuccin/nvim", as = "catppuccin" }
+  use 'folke/tokyonight.nvim'
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
@@ -103,7 +104,7 @@ vim.o.cursorline = true
 vim.o.clipboard = 'unnamedplus'
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -130,10 +131,20 @@ vim.o.showmode = false
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme catppuccin]]
+-- vim.cmd [[colorscheme catppuccin]]
+vim.cmd [[colorscheme tokyonight-night]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
+
+-- Struggle with tabs and spaces
+vim.o.shiftwidth = 4
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.expandtab = true
+
+-- Keep some screen lines above and below the cursor
+vim.o.scrolloff = 8
 
 -- [[ Basic Keymaps ]]
 -- Set ',' as the leader key
@@ -157,19 +168,17 @@ vim.keymap.set('n', '<leader>q', ':q<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>Q', ':bd<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>,', '<C-^>', { noremap = true })
 vim.keymap.set('n', '<leader>fc', '/\\v^[<\\|=>]{7}( .*\\|$)<CR>', { noremap = true }) -- find merge conflict markers
-vim.keymap.set('n', 'vs', ':vs<CR>', { noremap = true })
-vim.keymap.set('n', 'sp', ':sp<CR>', { noremap = true })
+vim.keymap.set('n', 'vs', ':vs<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'sp', ':sp<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-L>', '<C-W><C-L>', { noremap = true })
 vim.keymap.set('n', '<C-H>', '<C-W><C-H>', { noremap = true })
 vim.keymap.set('n', '<C-K>', '<C-W><C-K>', { noremap = true })
 vim.keymap.set('n', '<C-J>', '<C-W><C-J>', { noremap = true })
 vim.keymap.set('n', '<C-S>', ':%s/', { noremap = true })
-vim.keymap.set('n', '<C-N>', ':Lexplore<CR> :vertical resize 30<CR>', { noremap = true })
+vim.keymap.set('n', '<C-N>', ':Lexplore<CR> :vertical resize 30<CR>', { noremap = true, silent = true })
 vim.keymap.set("n", '<leader>t', ':sp<CR> :term<CR> :resize 20N<CR> i', { noremap = true, silent = true })
 vim.keymap.set("n", 'J', 'mzJ`z', { noremap = true })
 -- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
-
-vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, { noremap = true })
 
 -- Move code blocks
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true })
@@ -191,7 +200,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = 'catppuccin',
+    theme = 'tokyonight',
     component_separators = '|',
     section_separators = '',
   },
@@ -201,11 +210,8 @@ require('lualine').setup {
 require('Comment').setup()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
--- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
-}
+-- See `:help ibl
+require('ibl').setup()
 
 -- Gitsigns
 -- See `:help gitsigns.txt`
@@ -365,8 +371,8 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 
-  -- Auto format buffer on save
-  vim.cmd [[autocmd BufWritePre <buffer> :Format]]
+  -- TODO: Auto format buffer on save
+  -- vim.cmd [[autocmd BufWritePre <buffer> :Format]]
 end
 
 
@@ -377,17 +383,8 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   clangd = {},
-  -- gopls = {},
   -- pyright = {},
   rust_analyzer = {},
-  -- tsserver = {},
-
-  sumneko_lua = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
 }
 
 -- Setup neovim lua configuration
